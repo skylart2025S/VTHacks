@@ -264,6 +264,7 @@ const LoadingSpinner = ({ className }: { className?: string }) => (
 export default function BudgetBattleHomepage() {
   const [isVisible, setIsVisible] = useState(false);
   const [showOAuthModal, setShowOAuthModal] = useState(false);
+  const [showRoomModal, setShowRoomModal] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [authError, setAuthError] = useState("");
   const [scrollY, setScrollY] = useState(0);
@@ -452,6 +453,74 @@ export default function BudgetBattleHomepage() {
         </div>
       )}
 
+      {/* Room Selection Modal */}
+      {showRoomModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-gradient-to-br from-slate-900 to-purple-900 border border-purple-500/30 rounded-2xl p-8 w-full max-w-md">
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8" />
+              </div>
+              <h3 className="text-2xl font-bold mb-2">Join or Host Room</h3>
+              <p className="text-gray-400">
+                Create a new room or join an existing one
+              </p>
+            </div>
+
+            <div className="space-y-4 mb-6">
+              <button
+                onClick={() => {
+                  const roomId = Math.random().toString(36).substring(2, 8).toUpperCase();
+                  router.push(`/room/${roomId}?host=true`);
+                }}
+                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 group"
+              >
+                <Trophy className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                <span>Host Room</span>
+              </button>
+              
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-600"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-slate-900 text-gray-400">or</span>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <input
+                  type="text"
+                  placeholder="Enter room code"
+                  className="w-full px-4 py-3 bg-slate-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:outline-none transition-colors"
+                />
+                <button
+                  onClick={() => {
+                    const roomCode = (document.querySelector('input[placeholder="Enter room code"]') as HTMLInputElement)?.value;
+                    if (roomCode) {
+                      router.push(`/room/${roomCode}`);
+                    }
+                  }}
+                  className="w-full bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 group"
+                >
+                  <Users className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                  <span>Join Room</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <button
+                onClick={() => setShowRoomModal(false)}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Enhanced Navigation */}
       <nav className="relative z-10 flex items-center justify-between p-6 md:px-12 backdrop-blur-sm bg-black/10 border-b border-white/10">
         <div className="flex items-center space-x-3 group">
@@ -476,6 +545,15 @@ export default function BudgetBattleHomepage() {
           ))}
         </div>
         <div className="flex gap-3">
+          <button
+            onClick={() => setShowRoomModal(true)}
+            className="group relative bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-lg font-semibold hover:scale-105 transition-all duration-300 flex items-center gap-2 overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <Users className="w-4 h-4 relative z-10 group-hover:rotate-12 transition-transform duration-300" />
+            <span className="relative z-10">Join Group</span>
+            <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></div>
+          </button>
           <button
             onClick={() => setShowOAuthModal(true)}
             className="group relative bg-gradient-to-r from-green-500 to-blue-500 px-6 py-2 rounded-lg font-semibold hover:scale-105 transition-all duration-300 flex items-center gap-2 overflow-hidden"
