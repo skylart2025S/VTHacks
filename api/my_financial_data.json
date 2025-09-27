@@ -1,7 +1,7 @@
 {
   "accounts": [
     {
-      "account_id": "qe4ya3PME5CXA5ZeJPNZCB4kGgxEk6Cgb3M1P",
+      "account_id": "nKe9LKvye8CPDNkjx7JdSaGEdA3ZD9tA97a9E",
       "balances": {
         "available": 100.0,
         "current": 110.0,
@@ -17,7 +17,7 @@
       "holder_category": "personal"
     },
     {
-      "account_id": "KB3Drov6jwSv6gEazN1ECxK9eVB69kfRwQNap",
+      "account_id": "b1rod1ZLrmHlemP9aJ8yHqxK1BQPVWtmn9RnE",
       "balances": {
         "available": 200.0,
         "current": 210.0,
@@ -33,7 +33,7 @@
       "holder_category": "personal"
     },
     {
-      "account_id": "rQNn4xk1lXsyDReQjP7efgmv93oQvzT7KzMVR",
+      "account_id": "mq7w1qvm78uNMmznBwjyfd6Na7X3V8fgeKGer",
       "balances": {
         "available": null,
         "current": 1000.0,
@@ -48,7 +48,7 @@
       "subtype": "cd"
     },
     {
-      "account_id": "z8oXEepVdBIz7eq8VJXqTnB1dRb91jFlPnm15",
+      "account_id": "yjyRmjw4y8HGyVvLgArQuyPdkRe6WoS4P1JPM",
       "balances": {
         "available": null,
         "current": 410.0,
@@ -63,7 +63,7 @@
       "subtype": "credit card"
     },
     {
-      "account_id": "B8ybgjEAzNIAdnBWM64BFMqpxkebpET4eljNG",
+      "account_id": "9xDj3xJPD9hky6l3WmZMtWAL4De9dqf4oe7oM",
       "balances": {
         "available": 43200.0,
         "current": 43200.0,
@@ -78,7 +78,7 @@
       "subtype": "money market"
     },
     {
-      "account_id": "3akADR4oeVsGDABwXa8BFE78B9vJ8VCZoxRe1",
+      "account_id": "v4yJG4vxy8hmpajowQ3VF6bxlX9KedFqbGLb7",
       "balances": {
         "available": null,
         "current": 320.76,
@@ -93,7 +93,7 @@
       "subtype": "ira"
     },
     {
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "balances": {
         "available": null,
         "current": 23631.9805,
@@ -108,7 +108,7 @@
       "subtype": "401k"
     },
     {
-      "account_id": "dK76ALvBPesEKZjGn5vjCPX3xNbG3oiJgpaxk",
+      "account_id": "6z54rzpa59IekV5wGz1dCpbWExGBZku8QaEQE",
       "balances": {
         "available": null,
         "current": 65262.0,
@@ -124,7 +124,7 @@
       "holder_category": "personal"
     },
     {
-      "account_id": "aANbLZvKaJIlp6mQWE5msWV9yQ6d9DCZdM3xE",
+      "account_id": "Xa6RXax46jCj4eB6kv3pcn68r4bxpLFbkM7kw",
       "balances": {
         "available": null,
         "current": 56302.06,
@@ -139,7 +139,7 @@
       "subtype": "mortgage"
     },
     {
-      "account_id": "44y5gRNDQwHGdDjrZ68jFzqPa6wEPvFJDPMwr",
+      "account_id": "DM6GZMJg6dHDmkNpnMA6cnvgy6EZKXF3NlANj",
       "balances": {
         "available": 6009.0,
         "current": 6009.0,
@@ -154,7 +154,7 @@
       "subtype": "hsa"
     },
     {
-      "account_id": "NdaD3Ev6QVsnEyZexLoZs4al9b1klpFyewKqZ",
+      "account_id": "Vx6mRxBd6NhLdJX4vkZRcxXQ9nP47Wc9Q5jQ7",
       "balances": {
         "available": 12060.0,
         "current": 12060.0,
@@ -169,7 +169,7 @@
       "subtype": "cash management"
     },
     {
-      "account_id": "P4NDdlv6MRHepWvoadnviPa3e4yv3pio3Rvra",
+      "account_id": "wNw1nNvdw8hpEP7dBk3rseK4mxMQXvfPzy4RW",
       "balances": {
         "available": 4980.0,
         "current": 5020.0,
@@ -212,13 +212,13 @@
       },
       "account_owner": null,
       "name": "Tectra Inc",
-      "account_id": "z8oXEepVdBIz7eq8VJXqTnB1dRb91jFlPnm15",
+      "account_id": "yjyRmjw4y8HGyVvLgArQuyPdkRe6WoS4P1JPM",
       "amount": 500.0,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-26",
       "pending": false,
-      "transaction_id": "DWyD9eA63KCXVzJDevPJClNQ6y9GMei3RNwxm",
+      "transaction_id": "Xa6RXax46jCj4eB6kv3pcn6W6xvbwpfbKnQl7",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -255,13 +255,13 @@
       },
       "account_owner": null,
       "name": "AUTOMATIC PAYMENT - THANK",
-      "account_id": "z8oXEepVdBIz7eq8VJXqTnB1dRb91jFlPnm15",
+      "account_id": "yjyRmjw4y8HGyVvLgArQuyPdkRe6WoS4P1JPM",
       "amount": 2078.5,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-25",
       "pending": false,
-      "transaction_id": "5Nym1lPRZzHJmDpwnMkpSBRNe9zG1df5yXwM5",
+      "transaction_id": "wNw1nNvdw8hpEP7dBk3rseK5KQpMnXSPZoGde",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -298,13 +298,13 @@
       },
       "account_owner": null,
       "name": "KFC",
-      "account_id": "z8oXEepVdBIz7eq8VJXqTnB1dRb91jFlPnm15",
+      "account_id": "yjyRmjw4y8HGyVvLgArQuyPdkRe6WoS4P1JPM",
       "amount": 500.0,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-25",
       "pending": false,
-      "transaction_id": "wpQmePMwBDIxZJAp1MQAFnjqxm8gzbuPRzNjr",
+      "transaction_id": "Vx6mRxBd6NhLdJX4vkZRcxXmX4KPM7c9gPaAG",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -341,13 +341,13 @@
       },
       "account_owner": null,
       "name": "Madison Bicycle Shop",
-      "account_id": "z8oXEepVdBIz7eq8VJXqTnB1dRb91jFlPnm15",
+      "account_id": "yjyRmjw4y8HGyVvLgArQuyPdkRe6WoS4P1JPM",
       "amount": 500.0,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-25",
       "pending": false,
-      "transaction_id": "VQkD73v68oswgV8Lepn8cMBjn9glekC9yQme6",
+      "transaction_id": "DM6GZMJg6dHDmkNpnMA6cnvwvZLElKf3Wa1pK",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -384,13 +384,13 @@
       },
       "account_owner": null,
       "name": "CREDIT CARD 3333 PAYMENT *//",
-      "account_id": "KB3Drov6jwSv6gEazN1ECxK9eVB69kfRwQNap",
+      "account_id": "b1rod1ZLrmHlemP9aJ8yHqxK1BQPVWtmn9RnE",
       "amount": 25.0,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-16",
       "pending": false,
-      "transaction_id": "RPjD4Kv6LJI8pjqBN4rqi7JnzQARDjfakNl3E",
+      "transaction_id": "v4yJG4vxy8hmpajowQ3VF6bQbKw9Wefq6kp7V",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -427,13 +427,13 @@
       },
       "account_owner": null,
       "name": "Uber 063015 SF**POOL**",
-      "account_id": "qe4ya3PME5CXA5ZeJPNZCB4kGgxEk6Cgb3M1P",
+      "account_id": "nKe9LKvye8CPDNkjx7JdSaGEdA3ZD9tA97a9E",
       "amount": 5.4,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-16",
       "pending": false,
-      "transaction_id": "nPxn3raeomIWXaqP49bqFpmKAdg6wjfAV9ewd",
+      "transaction_id": "GpA6LpJWANHXPy7GNpWJiN8B8Q3Jrqf6MPajA",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -470,13 +470,13 @@
       },
       "account_owner": null,
       "name": "ACH Electronic CreditGUSTO PAY 123456",
-      "account_id": "B8ybgjEAzNIAdnBWM64BFMqpxkebpET4eljNG",
+      "account_id": "9xDj3xJPD9hky6l3WmZMtWAL4De9dqf4oe7oM",
       "amount": 5850.0,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-15",
       "pending": false,
-      "transaction_id": "nPxn3raeomIWXaqP49bqFpmKAdg6wjfAV9ewG",
+      "transaction_id": "kGPoZGvnP8S9Q5KDRonWu8Q5Qp9W4xFL6d9gk",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -513,13 +513,13 @@
       },
       "account_owner": null,
       "name": "CD DEPOSIT .INITIAL.",
-      "account_id": "rQNn4xk1lXsyDReQjP7efgmv93oQvzT7KzMVR",
+      "account_id": "mq7w1qvm78uNMmznBwjyfd6Na7X3V8fgeKGer",
       "amount": 1000.0,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-15",
       "pending": false,
-      "transaction_id": "XMKWDdv6lpIV8DxjZJmxswBk4r9ZzgUbjk6qM",
+      "transaction_id": "6z54rzpa59IekV5wGz1dCpb5bBwGeZu8DX6AM",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -556,13 +556,13 @@
       },
       "account_owner": null,
       "name": "Touchstone Climbing",
-      "account_id": "z8oXEepVdBIz7eq8VJXqTnB1dRb91jFlPnm15",
+      "account_id": "yjyRmjw4y8HGyVvLgArQuyPdkRe6WoS4P1JPM",
       "amount": 78.5,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-14",
       "pending": false,
-      "transaction_id": "AgyEvP86r5cE5keyJpaeCyBNJAVWmwH9JLjE4",
+      "transaction_id": "5rRaKrkdR9SwboL6Qr94iLqkqEAvBxf5K7veN",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -599,13 +599,13 @@
       },
       "account_owner": null,
       "name": "United Airlines",
-      "account_id": "qe4ya3PME5CXA5ZeJPNZCB4kGgxEk6Cgb3M1P",
+      "account_id": "nKe9LKvye8CPDNkjx7JdSaGEdA3ZD9tA97a9E",
       "amount": -500.0,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-14",
       "pending": false,
-      "transaction_id": "blPW9Mvr4esWZNglAk1gFznNB1J5pZCmKnxQl",
+      "transaction_id": "nKe9LKvye8CPDNkjx7JdSaGqGZP3pDTAlWomG",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -642,13 +642,13 @@
       },
       "account_owner": null,
       "name": "McDonald's",
-      "account_id": "qe4ya3PME5CXA5ZeJPNZCB4kGgxEk6Cgb3M1P",
+      "account_id": "nKe9LKvye8CPDNkjx7JdSaGEdA3ZD9tA97a9E",
       "amount": 12.0,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-13",
       "pending": false,
-      "transaction_id": "mN3nBKd7pWHVZJlNaxblsW9M7axoeDfgpemzo",
+      "transaction_id": "b1rod1ZLrmHlemP9aJ8yHqxbxPlQzVumbZlvz",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -685,13 +685,13 @@
       },
       "account_owner": null,
       "name": "Starbucks",
-      "account_id": "qe4ya3PME5CXA5ZeJPNZCB4kGgxEk6Cgb3M1P",
+      "account_id": "nKe9LKvye8CPDNkjx7JdSaGEdA3ZD9tA97a9E",
       "amount": 4.33,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-13",
       "pending": false,
-      "transaction_id": "ygJnZ7Lyx9cW7emGnRpmFKlbRkq71zu4nP3e3",
+      "transaction_id": "mq7w1qvm78uNMmznBwjyfd6Z63GXWVtgydE39",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -728,13 +728,13 @@
       },
       "account_owner": null,
       "name": "SparkFun",
-      "account_id": "qe4ya3PME5CXA5ZeJPNZCB4kGgxEk6Cgb3M1P",
+      "account_id": "nKe9LKvye8CPDNkjx7JdSaGEdA3ZD9tA97a9E",
       "amount": 89.4,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-12",
       "pending": false,
-      "transaction_id": "9eyEgzQDpWCRebJkg5qJHkl5D4vn6yU4yoGa8",
+      "transaction_id": "yjyRmjw4y8HGyVvLgArQuyPwP6VeKWH46XGvg",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -771,13 +771,13 @@
       },
       "account_owner": null,
       "name": "INTRST PYMNT",
-      "account_id": "KB3Drov6jwSv6gEazN1ECxK9eVB69kfRwQNap",
+      "account_id": "b1rod1ZLrmHlemP9aJ8yHqxK1BQPVWtmn9RnE",
       "amount": -4.22,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-11",
       "pending": false,
-      "transaction_id": "6PyE1qj5MJIXlEDe698DCe8vxEmgP7C8KQ9Lq",
+      "transaction_id": "Rr6Amrqz6xSBzWJmLkZRtX5l564x7gfapb911",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -814,13 +814,13 @@
       },
       "account_owner": null,
       "name": "United Airlines",
-      "account_id": "z8oXEepVdBIz7eq8VJXqTnB1dRb91jFlPnm15",
+      "account_id": "yjyRmjw4y8HGyVvLgArQuyPdkRe6WoS4P1JPM",
       "amount": 500.0,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-09-01",
       "pending": false,
-      "transaction_id": "GqKDEMvAabcaz4EXl1eECrg5lKvAdac6xKByA",
+      "transaction_id": "J86Wg8Jn67HdevZjWAbpSWA4Ae5m3xtB6gAWa",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -857,13 +857,13 @@
       },
       "account_owner": null,
       "name": "Uber 072515 SF**POOL**",
-      "account_id": "qe4ya3PME5CXA5ZeJPNZCB4kGgxEk6Cgb3M1P",
+      "account_id": "nKe9LKvye8CPDNkjx7JdSaGEdA3ZD9tA97a9E",
       "amount": 6.33,
       "iso_currency_code": "USD",
       "unofficial_currency_code": null,
       "date": "2025-08-30",
       "pending": false,
-      "transaction_id": "vLen7NZyzbhAyMbmeJ7bFWanXlv7mMfqebzAm",
+      "transaction_id": "9xDj3xJPD9hky6l3WmZMtWA8A9pekdt4xQrJB",
       "payment_channel": "other",
       "authorized_date": null,
       "authorized_datetime": null,
@@ -877,7 +877,7 @@
   ],
   "holdings": [
     {
-      "account_id": "3akADR4oeVsGDABwXa8BFE78B9vJ8VCZoxRe1",
+      "account_id": "v4yJG4vxy8hmpajowQ3VF6bxlX9KedFqbGLb7",
       "security_id": "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
       "institution_price": 1.0,
       "institution_value": 0.01,
@@ -891,7 +891,7 @@
       "vested_value": 1.0
     },
     {
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "KDwjlXj1Rqt58dVvmzRguxJybmyQL8FgeWWAy",
       "institution_price": 2.11,
       "institution_value": 2.11,
@@ -905,7 +905,7 @@
       "vested_value": null
     },
     {
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "NDVQrXQoqzt5v3bAe8qRt4A7mK7wvZCLEBBJk",
       "institution_price": 10.42,
       "institution_value": 20.84,
@@ -919,7 +919,7 @@
       "vested_value": null
     },
     {
-      "account_id": "3akADR4oeVsGDABwXa8BFE78B9vJ8VCZoxRe1",
+      "account_id": "v4yJG4vxy8hmpajowQ3VF6bxlX9KedFqbGLb7",
       "security_id": "8E4L9XLl6MudjEpwPAAgivmdZRdBPJuvMPlPb",
       "institution_price": 0.011,
       "institution_value": 110.0,
@@ -933,7 +933,7 @@
       "vested_value": null
     },
     {
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "9EWp9Xpqk1ua6DyXQb89ikMARWA6eyUzAbPMg",
       "institution_price": 39358.09375,
       "institution_value": 115.57268,
@@ -947,7 +947,7 @@
       "vested_value": null
     },
     {
-      "account_id": "3akADR4oeVsGDABwXa8BFE78B9vJ8VCZoxRe1",
+      "account_id": "v4yJG4vxy8hmpajowQ3VF6bxlX9KedFqbGLb7",
       "security_id": "abJamDazkgfvBkVGgnnLUWXoxnomp5up8llg4",
       "institution_price": 42.15,
       "institution_value": 210.75,
@@ -961,7 +961,7 @@
       "vested_value": 66.0
     },
     {
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "lngLy3Le7vflLnAzKqwZs19l6bl8P5H1jG9Zz",
       "institution_price": 20.0,
       "institution_value": 430.0,
@@ -975,7 +975,7 @@
       "vested_value": null
     },
     {
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "JDdP7XPMklt5vwPmDN45t3KAoWAPmjtpaW7DP",
       "institution_price": 27.0,
       "institution_value": 636.309,
@@ -989,7 +989,7 @@
       "vested_value": null
     },
     {
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "QDQ13y1Ezxt51QbDb6A8cjk9EK978our9NaAM",
       "institution_price": 94.808,
       "institution_value": 948.08,
@@ -1003,7 +1003,7 @@
       "vested_value": null
     },
     {
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "nnmo8doZ4lfKNEDe3mPJipLGkaGw3jfPrpxoN",
       "institution_price": 13.73,
       "institution_value": 1373.6865,
@@ -1017,7 +1017,7 @@
       "vested_value": null
     },
     {
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "MD9eKXeplrt5yKRlzLqXiavwb6wrdxUb3wdnM",
       "institution_price": 24.5,
       "institution_value": 1855.875,
@@ -1031,7 +1031,7 @@
       "vested_value": null
     },
     {
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "eW4jmnjd6AtjxXVrjmj6SX1dNEdZp3Cy8RnRQ",
       "institution_price": 34.73,
       "institution_value": 7397.49,
@@ -1045,7 +1045,7 @@
       "vested_value": null
     },
     {
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
       "institution_price": 1.0,
       "institution_value": 12345.67,
@@ -1375,8 +1375,8 @@
   ],
   "investment_transactions": [
     {
-      "investment_transaction_id": "9eyEgzQDpWCRebJkg5qJHklLAa8y3Qu49jQlA",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "6z54rzpa59IekV5wGz1dCpbWwmGqeZF8PNmwK",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "MD9eKXeplrt5yKRlzLqXiavwb6wrdxUb3wdnM",
       "date": "2025-09-27",
       "name": "SELL Cambiar International Equity Institutional",
@@ -1391,8 +1391,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "ygJnZ7Lyx9cW7emGnRpmFKldPJwz98T48xXrE",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "Rr6Amrqz6xSBzWJmLkZRtX5N4AxZ7guaoDwdN",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "KDwjlXj1Rqt58dVvmzRguxJybmyQL8FgeWWAy",
       "date": "2025-09-26",
       "name": "BUY Achillion Pharmaceuticals Inc.",
@@ -1407,8 +1407,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "blPW9Mvr4esWZNglAk1gFznKxobZvycm68Q5Q",
-      "account_id": "3akADR4oeVsGDABwXa8BFE78B9vJ8VCZoxRe1",
+      "investment_transaction_id": "9xDj3xJPD9hky6l3WmZMtWALpvezkdu49Annm",
+      "account_id": "v4yJG4vxy8hmpajowQ3VF6bxlX9KedFqbGLb7",
       "security_id": "8E4L9XLl6MudjEpwPAAgivmdZRdBPJuvMPlPb",
       "date": "2025-09-25",
       "name": "BUY NFLX DERIVATIVE",
@@ -1423,8 +1423,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "mN3nBKd7pWHVZJlNaxblsW9N6lZDQ4sgQ6zbd",
-      "account_id": "3akADR4oeVsGDABwXa8BFE78B9vJ8VCZoxRe1",
+      "investment_transaction_id": "v4yJG4vxy8hmpajowQ3VF6bxwv95WeCqZNll3",
+      "account_id": "v4yJG4vxy8hmpajowQ3VF6bxlX9KedFqbGLb7",
       "security_id": "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
       "date": "2025-09-25",
       "name": "INVBANKTRAN DEP CO CONTRIB CURRENT YR EMPLOYER CU CO CONTR CURRENT YR EMPLOYER CUR YR",
@@ -1439,8 +1439,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "mN3nBKd7pWHVZJlNaxblsW9N6lZDQ4sgQ6dRq",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "v4yJG4vxy8hmpajowQ3VF6bxwv95WeCqZNg5Z",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
       "date": "2025-09-25",
       "name": "EMPLOYER PAYROLL CONTRIBUTION",
@@ -1455,8 +1455,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "nPxn3raeomIWXaqP49bqFpmEGXqjr4iAMvwdN",
-      "account_id": "3akADR4oeVsGDABwXa8BFE78B9vJ8VCZoxRe1",
+      "investment_transaction_id": "yjyRmjw4y8HGyVvLgArQuyPdVqeaKWu48j55z",
+      "account_id": "v4yJG4vxy8hmpajowQ3VF6bxlX9KedFqbGLb7",
       "security_id": "abJamDazkgfvBkVGgnnLUWXoxnomp5up8llg4",
       "date": "2025-09-24",
       "name": "SELL iShares Inc MSCI Brazil",
@@ -1471,8 +1471,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "blPW9Mvr4esWZNglAk1gFznKxobZvycm68ZgA",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "9xDj3xJPD9hky6l3WmZMtWALpvezkdu49AkPg",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "eW4jmnjd6AtjxXVrjmj6SX1dNEdZp3Cy8RnRQ",
       "date": "2025-09-24",
       "name": "SELL Southside Bancshares Inc.",
@@ -1487,8 +1487,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "nPxn3raeomIWXaqP49bqFpmEGXqjr4iAMvWPL",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "yjyRmjw4y8HGyVvLgArQuyPdVqeaKWu48joNA",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "nnmo8doZ4lfKNEDe3mPJipLGkaGw3jfPrpxoN",
       "date": "2025-09-23",
       "name": "BUY FIDELITY INDEX 1055",
@@ -1503,8 +1503,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "vLen7NZyzbhAyMbmeJ7bFWaxbPQMpJsqZrkor",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "Xa6RXax46jCj4eB6kv3pcn68v9b3wpCbvV9BK",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
       "date": "2025-09-23",
       "name": "INVBANKTRAN DEP INTEREST EARNED INTEREST EARNED",
@@ -1519,8 +1519,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "RPjD4Kv6LJI8pjqBN4rqi7JN5PljBMTao8bzB",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "DM6GZMJg6dHDmkNpnMA6cnvgL9EAlKC3LV7yq",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "9EWp9Xpqk1ua6DyXQb89ikMARWA6eyUzAbPMg",
       "date": "2025-09-23",
       "name": "BUY BTC",
@@ -1535,8 +1535,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "GqKDEMvAabcaz4EXl1eECrgP8GBaLxi67kPJV",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "mq7w1qvm78uNMmznBwjyfd6NGxXRWVCgQx9qd",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
       "date": "2025-09-21",
       "name": "ACCOUNT FEE",
@@ -1551,8 +1551,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "87yE8reAL4SZL1Av9klAsvrAd8LJ3QtWJqLv5",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "Ae6W7eJL6BSy3Ldv1MPWu187QV3PyEC9xZaGz",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "eW4jmnjd6AtjxXVrjmj6SX1dNEdZp3Cy8RnRQ",
       "date": "2025-09-20",
       "name": "INCOME DIV DIVIDEND RECEIVED",
@@ -1567,8 +1567,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "AgyEvP86r5cE5keyJpaeCyB78Xnwkqs9xzARK",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "b1rod1ZLrmHlemP9aJ8yHqxKlJQ6zVIm6aEDQ",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "QDQ13y1Ezxt51QbDb6A8cjk9EK978our9NaAM",
       "date": "2025-09-20",
       "name": "BUY United States Treas Bills 0.000% 10/31/24 B/E Dtd 11/02/23 N/C",
@@ -1583,8 +1583,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "ojdnkz4QgZSL9gKjmPbKCNX5bPed7aioVE741",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "E1bWM1J8bkHbmdPEKM4eUKyraEDAqws45GrDo",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "JDdP7XPMklt5vwPmDN45t3KAoWAPmjtpaW7DP",
       "date": "2025-09-19",
       "name": "SELL Matthews Pacific Tiger Fund Insti Class",
@@ -1599,8 +1599,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "gBlWLgKdewSGy7KBAMwKFmAPV3xoKDsE7Wnjy",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "WdVA6d3aVPSBalLnGmM4tpB3Klvj1dF6QnXLn",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "lngLy3Le7vflLnAzKqwZs19l6bl8P5H1jG9Zz",
       "date": "2025-09-19",
       "name": "SELL Trp Equity Income",
@@ -1615,8 +1615,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "p7kndBNZ8bSbgXrGAMRrF5p6xqMZ31upQaV9k",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "83APB3gNA9Cv8jXBR5P6cRdAbpPVveCWJMgDd",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "NDVQrXQoqzt5v3bAe8qRt4A7mK7wvZCLEBBJk",
       "date": "2025-09-18",
       "name": "BUY DoubleLine Total Return Bond Fund",
@@ -1631,8 +1631,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "L3xDzkv67GcZXzEyBNLEsdr1keQ8mVCkWwpg9",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "g8d6j8oEdmHBPl9za68LtlVPGzN7mbtE7zPAA",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "MD9eKXeplrt5yKRlzLqXiavwb6wrdxUb3wdnM",
       "date": "2025-09-17",
       "name": "SELL Cambiar International Equity Institutional",
@@ -1647,8 +1647,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "1x7EDRd5jrHl6EwrLMQwsr3xX6JjPqipPBebZ",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "orQoprvlQwSj6d3yo7Zvc4b5jgmxNruoVg16W",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "KDwjlXj1Rqt58dVvmzRguxJybmyQL8FgeWWAy",
       "date": "2025-09-16",
       "name": "BUY Achillion Pharmaceuticals Inc.",
@@ -1663,8 +1663,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "AgyEvP86r5cE5keyJpaeCyB78Xnwkqs9xzE7z",
-      "account_id": "3akADR4oeVsGDABwXa8BFE78B9vJ8VCZoxRe1",
+      "investment_transaction_id": "b1rod1ZLrmHlemP9aJ8yHqxKlJQ6zVIm6azzb",
+      "account_id": "v4yJG4vxy8hmpajowQ3VF6bxlX9KedFqbGLb7",
       "security_id": "8E4L9XLl6MudjEpwPAAgivmdZRdBPJuvMPlPb",
       "date": "2025-09-15",
       "name": "BUY NFLX DERIVATIVE",
@@ -1679,8 +1679,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "GqKDEMvAabcaz4EXl1eECrgP8GBaLxi67kylQ",
-      "account_id": "3akADR4oeVsGDABwXa8BFE78B9vJ8VCZoxRe1",
+      "investment_transaction_id": "mq7w1qvm78uNMmznBwjyfd6NGxXRWVCgQxPPZ",
+      "account_id": "v4yJG4vxy8hmpajowQ3VF6bxlX9KedFqbGLb7",
       "security_id": "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
       "date": "2025-09-15",
       "name": "INVBANKTRAN DEP CO CONTRIB CURRENT YR EMPLOYER CU CO CONTR CURRENT YR EMPLOYER CUR YR",
@@ -1695,8 +1695,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "MxdDB8v6e9HkzQn734pnFaAzw4lx5BCLRqPb4",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "pzZmozvqZWIGWnx1emLyuQx6ygRa5zSpQBbP7",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
       "date": "2025-09-15",
       "name": "EMPLOYER PAYROLL CONTRIBUTION",
@@ -1711,8 +1711,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "WZqDexvVEwsJ8VWBQDdWS1E3BP9AQ6S6QgKrn",
-      "account_id": "3akADR4oeVsGDABwXa8BFE78B9vJ8VCZoxRe1",
+      "investment_transaction_id": "nKe9LKvye8CPDNkjx7JdSaGEPg3vpDCAMrEEV",
+      "account_id": "v4yJG4vxy8hmpajowQ3VF6bxlX9KedFqbGLb7",
       "security_id": "abJamDazkgfvBkVGgnnLUWXoxnomp5up8llg4",
       "date": "2025-09-14",
       "name": "SELL iShares Inc MSCI Brazil",
@@ -1727,8 +1727,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "ZLzWG4X6KwhEp6wzvanwCg5aR97LEQFe14Xne",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "LW6wEWJm6qcym31aD6jWuDk1alnjdMCkW1qZv",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "eW4jmnjd6AtjxXVrjmj6SX1dNEdZp3Cy8RnRQ",
       "date": "2025-09-14",
       "name": "SELL Southside Bancshares Inc.",
@@ -1743,8 +1743,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "QNPDaqw61QHgrR87vEn8ijlV9NMoWLFwlv7rp",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "1G5BXGQz59SrJKD3dNWyIDXxARkZrGCpP4N6v",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "nnmo8doZ4lfKNEDe3mPJipLGkaGw3jfPrpxoN",
       "date": "2025-09-13",
       "name": "BUY FIDELITY INDEX 1055",
@@ -1759,8 +1759,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "EAlDgQGbxRIJ718bAoj8SqJrylRBM6C45bkZ3",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "GpA6LpJWANHXPy7GNpWJiN8P3vJ6rqu67mqEQ",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
       "date": "2025-09-13",
       "name": "INVBANKTRAN DEP INTEREST EARNED INTEREST EARNED",
@@ -1775,8 +1775,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "WZqDexvVEwsJ8VWBQDdWS1E3BP9AQ6S6Qg1oa",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "nKe9LKvye8CPDNkjx7JdSaGEPg3vpDCAMrZxN",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "9EWp9Xpqk1ua6DyXQb89ikMARWA6eyUzAbPMg",
       "date": "2025-09-13",
       "name": "BUY BTC",
@@ -1791,8 +1791,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "ereW8pl3j4SnlZkrJMoksXbmdlg38eFr3p5yM",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "MA6VWAJy6Kh7MyLd6XGvc6wzyQdGaRCLR3NaG",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
       "date": "2025-09-11",
       "name": "ACCOUNT FEE",
@@ -1807,8 +1807,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "WZqDexvVEwsJ8VWBQDdWS1E3BP9AQ6S6Qg1oV",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "7BmNzBo4m9Sl9aqzZnyLHo9Wa3nKxpIdBR6Dj",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "eW4jmnjd6AtjxXVrjmj6SX1dNEdZp3Cy8RnRQ",
       "date": "2025-09-10",
       "name": "INCOME DIV DIVIDEND RECEIVED",
@@ -1823,8 +1823,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "nPxn3raeomIWXaqP49bqFpmEGXqjr4iAMvWPP",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "ZN6AlNaP6mhz95br1ZGDiNRadwvGgAue1MPZW",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "QDQ13y1Ezxt51QbDb6A8cjk9EK978our9NaAM",
       "date": "2025-09-10",
       "name": "BUY United States Treas Bills 0.000% 10/31/24 B/E Dtd 11/02/23 N/C",
@@ -1839,8 +1839,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "87yE8reAL4SZL1Av9klAsvrAd8LJ3QtWJqLva",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "Pq6AnqJK6Buo9Bg1JmQKcqlZvL8QPwIoyG8qQ",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "JDdP7XPMklt5vwPmDN45t3KAoWAPmjtpaW7DP",
       "date": "2025-09-09",
       "name": "SELL Matthews Pacific Tiger Fund Insti Class",
@@ -1855,8 +1855,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "EAlDgQGbxRIJ718bAoj8SqJrylRBM6C45bkZ7",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "jAN6QAvGN8hGpjqr5noauBy9GJ7RWbc6RPxnG",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "lngLy3Le7vflLnAzKqwZs19l6bl8P5H1jG9Zz",
       "date": "2025-09-09",
       "name": "SELL Trp Equity Income",
@@ -1871,8 +1871,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "gBlWLgKdewSGy7KBAMwKFmAPV3xoKDsE7WnjV",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "NG6ykGJl6rSelvpGKJR1CK73kVvR4xsyAEoRX",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "NDVQrXQoqzt5v3bAe8qRt4A7mK7wvZCLEBBJk",
       "date": "2025-09-08",
       "name": "BUY DoubleLine Total Return Bond Fund",
@@ -1887,8 +1887,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "ojdnkz4QgZSL9gKjmPbKCNX5bPed7aioVE74Z",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "4KDdqK1xDJCrnBPexKA3I1meEVALz3CJRX9GJ",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "MD9eKXeplrt5yKRlzLqXiavwb6wrdxUb3wdnM",
       "date": "2025-09-07",
       "name": "SELL Cambiar International Equity Institutional",
@@ -1903,8 +1903,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "p7kndBNZ8bSbgXrGAMRrF5p6xqMZ31upQaV9w",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "aMKGxMQ1KmHQ3BLPegDrunozdRpwWECZK8oy7",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "KDwjlXj1Rqt58dVvmzRguxJybmyQL8FgeWWAy",
       "date": "2025-09-06",
       "name": "BUY Achillion Pharmaceuticals Inc.",
@@ -1919,8 +1919,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "87yE8reAL4SZL1Av9klAsvrAd8LJ3QtWJqjld",
-      "account_id": "3akADR4oeVsGDABwXa8BFE78B9vJ8VCZoxRe1",
+      "investment_transaction_id": "Ae6W7eJL6BSy3Ldv1MPWu187QV3PyEC9xZyyx",
+      "account_id": "v4yJG4vxy8hmpajowQ3VF6bxlX9KedFqbGLb7",
       "security_id": "8E4L9XLl6MudjEpwPAAgivmdZRdBPJuvMPlPb",
       "date": "2025-09-05",
       "name": "BUY NFLX DERIVATIVE",
@@ -1935,8 +1935,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "EAlDgQGbxRIJ718bAoj8SqJrylRBM6C45bJwo",
-      "account_id": "3akADR4oeVsGDABwXa8BFE78B9vJ8VCZoxRe1",
+      "investment_transaction_id": "GpA6LpJWANHXPy7GNpWJiN8P3vJ6rqu67m88K",
+      "account_id": "v4yJG4vxy8hmpajowQ3VF6bxlX9KedFqbGLb7",
       "security_id": "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
       "date": "2025-09-05",
       "name": "INVBANKTRAN DEP CO CONTRIB CURRENT YR EMPLOYER CU CO CONTR CURRENT YR EMPLOYER CUR YR",
@@ -1951,8 +1951,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "L3xDzkv67GcZXzEyBNLEsdr1keQ8mVCkWwpgb",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "dpB94p1oBmHGamrN89PXun9LGzvJPeCJnvlVP",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
       "date": "2025-09-05",
       "name": "EMPLOYER PAYROLL CONTRIBUTION",
@@ -1967,8 +1967,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "gBlWLgKdewSGy7KBAMwKFmAPV3xoKDsE7WqmA",
-      "account_id": "3akADR4oeVsGDABwXa8BFE78B9vJ8VCZoxRe1",
+      "investment_transaction_id": "WdVA6d3aVPSBalLnGmM4tpB3Klvj1dF6Qnvvj",
+      "account_id": "v4yJG4vxy8hmpajowQ3VF6bxlX9KedFqbGLb7",
       "security_id": "abJamDazkgfvBkVGgnnLUWXoxnomp5up8llg4",
       "date": "2025-09-04",
       "name": "SELL iShares Inc MSCI Brazil",
@@ -1983,8 +1983,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "1x7EDRd5jrHl6EwrLMQwsr3xX6JjPqipPBebJ",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "xPymbPvayQIop9enj7WacVMwnGNrDji6Kxkrm",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "eW4jmnjd6AtjxXVrjmj6SX1dNEdZp3Cy8RnRQ",
       "date": "2025-09-04",
       "name": "SELL Southside Bancshares Inc.",
@@ -1999,8 +1999,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "MxdDB8v6e9HkzQn734pnFaAzw4lx5BCLRqPbo",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "3qoxlqM3o9uwJlxzmqbKiM35JDqNEKFZVkQ4v",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "nnmo8doZ4lfKNEDe3mPJipLGkaGw3jfPrpxoN",
       "date": "2025-09-03",
       "name": "BUY FIDELITY INDEX 1055",
@@ -2015,8 +2015,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "AgyEvP86r5cE5keyJpaeCyB78Xnwkqs9xzARk",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "eo3DNoLg3mtrvxW6yDpRIEdmrVpMXafr38JAJ",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
       "date": "2025-09-03",
       "name": "INVBANKTRAN DEP INTEREST EARNED INTEREST EARNED",
@@ -2031,8 +2031,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "GqKDEMvAabcaz4EXl1eECrgP8GBaLxi67kPJN",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "QK6AbKlr63C791Wbd6m4cK9V368mjnswl9Zbj",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "9EWp9Xpqk1ua6DyXQb89ikMARWA6eyUzAbPMg",
       "date": "2025-09-03",
       "name": "BUY BTC",
@@ -2047,8 +2047,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "ZLzWG4X6KwhEp6wzvanwCg5aR97LEQFe14Xn6",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "BQAWeQJpA3IWxkavKb8mcKBPbomZMrs4xdXm1",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "d6ePmbPxgWCWmMVv66q9iPV94n91vMtov5Are",
       "date": "2025-09-01",
       "name": "ACCOUNT FEE",
@@ -2063,8 +2063,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "jdrnKWBNM3sd1wBGexbBFWe9yjrEL1s6RDLoK",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "qBMogBvKM8SeaLdDy7pECAemEQDwByfgy9Lpm",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "eW4jmnjd6AtjxXVrjmj6SX1dNEdZp3Cy8RnRQ",
       "date": "2025-08-31",
       "name": "INCOME DIV DIVIDEND RECEIVED",
@@ -2079,8 +2079,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "QNPDaqw61QHgrR87vEn8ijlV9NMoWLFwlv7rQ",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "z7V1y7vNVDC8p1Zjn5lWFkeJ9ML3nNclXRMkn",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "QDQ13y1Ezxt51QbDb6A8cjk9EK978our9NaAM",
       "date": "2025-08-31",
       "name": "BUY United States Treas Bills 0.000% 10/31/24 B/E Dtd 11/02/23 N/C",
@@ -2095,8 +2095,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "NdaD3Ev6QVsnEyZexLoZs4a37XjZzWFyA95LQ",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "kGPoZGvnP8S9Q5KDRonWu8Qe9gWo4xiL1NqM9",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "JDdP7XPMklt5vwPmDN45t3KAoWAPmjtpaW7DP",
       "date": "2025-08-30",
       "name": "SELL Matthews Pacific Tiger Fund Insti Class",
@@ -2111,8 +2111,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "P4NDdlv6MRHepWvoadnviPaZlXkdnMcoygWEy",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "lljoMl6bjyh4ALvwyVrjhblv4ePK1pFpmjnPq",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "lngLy3Le7vflLnAzKqwZs19l6bl8P5H1jG9Zz",
       "date": "2025-08-30",
       "name": "SELL Trp Equity Income",
@@ -2127,8 +2127,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "44y5gRNDQwHGdDjrZ68jFzqemX5RxocJRBA8M",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "J86Wg8Jn67HdevZjWAbpSWAD5zmb3xuBea1zE",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "NDVQrXQoqzt5v3bAe8qRt4A7mK7wvZCLEBBJk",
       "date": "2025-08-29",
       "name": "BUY DoubleLine Total Return Bond Fund",
@@ -2143,8 +2143,8 @@
       "cancel_transaction_id": null
     },
     {
-      "investment_transaction_id": "aANbLZvKaJIlp6mQWE5msWVzokM5rgsZKrQpQ",
-      "account_id": "xoknZj1y3LSxG8woJMmwFDA1x8Rn16F6lbBRo",
+      "investment_transaction_id": "Pq6AnqJK6Buo9Bg1JmQKcqlZvL8QPwIoyG8qM",
+      "account_id": "Rr6Amrqz6xSBzWJmLkZRtX5NQzx6gbCaNx6Nr",
       "security_id": "MD9eKXeplrt5yKRlzLqXiavwb6wrdxUb3wdnM",
       "date": "2025-08-28",
       "name": "SELL Cambiar International Equity Institutional",
@@ -2160,9 +2160,9 @@
     }
   ],
   "metadata": {
-    "fetch_date": "2025-09-27T11:21:27.941469",
+    "fetch_date": "2025-09-27T14:32:15.184633",
     "data_source": "plaid_sandbox",
-    "item_id": "3akADR4oeVsGDABwXa8BFE7n5j11xEfqM3DGR",
+    "item_id": "Vx6mRxBd6NhLdJX4vkZRcxXGwZK9QWcWRN7qd",
     "total_accounts": 12,
     "total_transactions": 16,
     "total_holdings": 13

@@ -4,28 +4,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-// Custom CSS for Clash font
-const clashFontStyles = `
-  @font-face {
-    font-family: 'Clash';
-    src: url('/fonts/Clash_Regular.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  .font-clash {
-    font-family: 'Clash', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  }
-`;
-
-// Inject styles
-if (typeof document !== 'undefined') {
-  const styleElement = document.createElement('style');
-  styleElement.textContent = clashFontStyles;
-  document.head.appendChild(styleElement);
-}
-
 // SVG Components for the dashboard
 const Trophy = ({ className }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -92,90 +70,57 @@ const Calendar = ({ className }) => (
 export default function UserDashboard({ params }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [activeTab, setActiveTab] = useState('overview');
   const username = params.username;
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  useEffect(() => {
-    // Mock user data generation with more realistic data
-    const generateMockUser = () => {
-      const names = ['Alex', 'Sarah', 'Mike', 'Emma', 'Josh', 'Maya', 'Chris', 'Zoe'];
-      const adjectives = ['Budget', 'Savings', 'Money', 'Frugal', 'Smart', 'Wise'];
-      const suffixes = ['Pro', 'Master', 'Ninja', 'Guru', 'Champion', 'Expert'];
-      
-      const randomName = names[Math.floor(Math.random() * names.length)];
-      const displayName = username.includes('-') ? 
-        username.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') :
-        `${randomName} ${adjectives[Math.floor(Math.random() * adjectives.length)]}`;
-
-      const level = Math.floor(Math.random() * 50) + 1;
-      const xp = Math.floor(Math.random() * 10000);
-      const totalSaved = Math.floor(Math.random() * 5000) + 500;
-      
-      const mockUser = {
-        username: username,
-        displayName: displayName,
-        level: level,
-        xp: xp,
-        totalSaved: totalSaved,
-        rank: Math.floor(Math.random() * 1000) + 1,
-        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${username}&backgroundColor=gradient`,
-        joinedDate: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toLocaleDateString(),
-        badges: [
-          { name: 'Budget Ninja', icon: '🥷', earned: true, description: 'Mastered stealth savings' },
-          { name: 'Savings Master', icon: '💰', earned: true, description: 'Saved over $1000' },
-          { name: 'Week Warrior', icon: '⚔️', earned: Math.random() > 0.5, description: '7 days of perfect budgeting' },
-          { name: 'Efficiency Expert', icon: '⚡', earned: Math.random() > 0.3, description: '90%+ efficiency score' },
-          { name: 'Social Spender', icon: '👥', earned: Math.random() > 0.6, description: 'Connected with 10+ friends' },
-          { name: 'Challenge Crusher', icon: '🏆', earned: Math.random() > 0.4, description: 'Completed 5 weekly challenges' }
-        ],
-        stats: {
-          weeklyScore: Math.floor(Math.random() * 100),
-          monthlyScore: Math.floor(Math.random() * 500),
-          totalTransactions: Math.floor(Math.random() * 200) + 20,
-          efficiencyScore: Math.floor(Math.random() * 30) + 70,
-          streak: Math.floor(Math.random() * 30) + 1,
-          challengesCompleted: Math.floor(Math.random() * 15) + 3
-        },
-        recentAchievements: [
-          `Saved $${Math.floor(Math.random() * 100 + 10)} this week!`,
-          'Completed daily budget check for 5 days',
-          `Beat ${Math.floor(Math.random() * 10 + 1)} friends in efficiency`,
-          'Unlocked new badge: Week Warrior',
-          'Reached a new savings milestone'
-        ],
-        weeklyProgress: [
-          { day: 'Mon', score: Math.floor(Math.random() * 100) },
-          { day: 'Tue', score: Math.floor(Math.random() * 100) },
-          { day: 'Wed', score: Math.floor(Math.random() * 100) },
-          { day: 'Thu', score: Math.floor(Math.random() * 100) },
-          { day: 'Fri', score: Math.floor(Math.random() * 100) },
-          { day: 'Sat', score: Math.floor(Math.random() * 100) },
-          { day: 'Sun', score: Math.floor(Math.random() * 100) }
-        ],
-        friends: [
-          { name: 'BudgetBeast', level: 23, status: 'online' },
-          { name: 'SavingsQueen', level: 31, status: 'offline' },
-          { name: 'MoneyMaster', level: 18, status: 'online' },
-          { name: 'FrugalFighter', level: 27, status: 'away' }
-        ]
-      };
-      return mockUser;
+    // Simple user data setup
+    const displayName = username.includes('-') ? 
+      username.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') :
+      username.charAt(0).toUpperCase() + username.slice(1);
+    
+    const simpleUser = {
+      username: username,
+      displayName: displayName,
+      level: 1,
+      xp: 0,
+      totalSaved: 0,
+      rank: 1,
+      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${username}&backgroundColor=gradient`,
+      joinedDate: new Date().toLocaleDateString(),
+      badges: [
+        { name: 'Welcome', icon: '👋', earned: true, description: 'Joined Budget Battle Royale' }
+      ],
+      stats: {
+        weeklyScore: 0,
+        monthlyScore: 0,
+        totalTransactions: 0,
+        efficiencyScore: 0,
+        streak: 0,
+        challengesCompleted: 0
+      },
+      recentAchievements: [
+        'Welcome to Budget Battle Royale!',
+        'Complete your first transaction to start earning points',
+        'Connect your bank account to unlock AI insights'
+      ],
+      weeklyProgress: [
+        { day: 'Mon', score: 0 },
+        { day: 'Tue', score: 0 },
+        { day: 'Wed', score: 0 },
+        { day: 'Thu', score: 0 },
+        { day: 'Fri', score: 0 },
+        { day: 'Sat', score: 0 },
+        { day: 'Sun', score: 0 }
+      ],
+      friends: []
     };
 
-    // Simulate loading delay
+    // Quick loading
     setTimeout(() => {
-      setUser(generateMockUser());
+      setUser(simpleUser);
       setIsLoading(false);
-    }, 1500);
+    }, 500);
   }, [username]);
 
   if (isLoading) {
@@ -211,31 +156,9 @@ export default function UserDashboard({ params }) {
   }
 
   return (
-    <div className="min-h-screen text-white font-clash relative overflow-hidden">
-      {/* Animated background particles */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-green-400 rounded-full animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Dynamic gradient orb following mouse */}
-      <div 
-        className="fixed w-96 h-96 rounded-full bg-gradient-to-r from-green-500/10 to-blue-500/10 blur-3xl pointer-events-none transition-all duration-500"
-        style={{
-          left: mousePos.x - 192,
-          top: mousePos.y - 192,
-        }}
-      />
+    <div className="min-h-screen text-white relative overflow-hidden">
+      {/* Background gradient */}
+      <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-green-950 to-slate-900"></div>
 
       <div className="relative z-10 p-6">
         {/* Header */}
