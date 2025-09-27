@@ -1,19 +1,29 @@
-// app/user/[username]/layout.js
-import { Inter } from 'next/font/google'
+// app/user/[username]/layout.tsx
+import { Inter } from "next/font/google";
+import type { ReactNode } from "react";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
-export default function UserLayout({ children, params }) {
+interface UserLayoutProps {
+  children: ReactNode;
+  params: {
+    username: string;
+  };
+}
+
+export default function UserLayout({ children }: UserLayoutProps) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen bg-gradient-to-br from-slate-950 via-green-950 to-slate-900`}>
+      <body
+        className={`${inter.className} min-h-screen bg-gradient-to-br from-slate-950 via-green-950 to-slate-900`}
+      >
         <main>{children}</main>
       </body>
     </html>
-  )
+  );
 }
 
 export const metadata = {
-  title: 'Budget Battle Royale - User Dashboard',
-  description: 'Compete with friends and master your budget',
-}
+  title: "RoomieLoot - User Dashboard",
+  description: "Split your finances, not your friendships",
+};

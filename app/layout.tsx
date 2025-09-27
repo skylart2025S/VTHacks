@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "RoomieLoot - Budget Battle Royale",
-  description: "Turn budgeting into epic battles. Compete with friends, master your spending, and climb the leaderboard with AI-powered insights.",
+  description:
+    "Turn budgeting into epic battles. Compete with friends, master your spending, and climb the leaderboard with AI-powered insights.",
 };
 
 export default function RootLayout({
