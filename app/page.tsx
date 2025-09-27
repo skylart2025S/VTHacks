@@ -1,6 +1,30 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+// Custom CSS for Clash font
+const clashFontStyles = `
+  @font-face {
+    font-family: 'Clash';
+    src: url('/fonts/Clash_Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  .font-clash {
+    font-family: 'Clash', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+`;
+
+// Inject styles
+if (typeof document !== 'undefined') {
+  const styleElement = document.createElement('style');
+  styleElement.textContent = clashFontStyles;
+  document.head.appendChild(styleElement);
+}
 
 // SVG Icon Components
 const ChevronRight = ({ className }) => (
@@ -63,9 +87,18 @@ const Play = ({ className }) => (
   </svg>
 );
 
+const UserIcon = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+  </svg>
+);
+
 export default function BudgetBattleHomepage() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
+  const [username, setUsername] = useState('');
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setIsVisible(true);
@@ -75,6 +108,21 @@ export default function BudgetBattleHomepage() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (username.trim()) {
+      // Navigate to user page
+      router.push(`/user/${username.toLowerCase().replace(/\s+/g, '-')}`);
+    }
+  };
+
+  const handleQuickStart = () => {
+    // Generate a random demo username for quick access
+    const demoUsernames = ['alex-chen', 'sarah-j', 'mike-budget-pro', 'emma-saver', 'budget-ninja'];
+    const randomUser = demoUsernames[Math.floor(Math.random() * demoUsernames.length)];
+    router.push(`/user/${randomUser}`);
+  };
 
   const features = [
     {
@@ -107,13 +155,13 @@ export default function BudgetBattleHomepage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-green-950 to-slate-900 text-white overflow-hidden font-clash">
       {/* Animated background particles */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-purple-400 rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-green-400 rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -126,38 +174,87 @@ export default function BudgetBattleHomepage() {
 
       {/* Dynamic gradient orb following mouse */}
       <div 
-        className="fixed w-96 h-96 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 blur-3xl pointer-events-none transition-all duration-300"
+        className="fixed w-96 h-96 rounded-full bg-gradient-to-r from-green-500/20 to-blue-500/20 blur-3xl pointer-events-none transition-all duration-300"
         style={{
           left: mousePos.x - 192,
           top: mousePos.y - 192,
         }}
       />
 
+      {/* Login Modal */}
+      {showLoginModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-gradient-to-br from-slate-900 to-green-900 border border-green-500/30 rounded-2xl p-8 w-full max-w-md">
+            <h3 className="text-2xl font-bold mb-6 text-center">Enter Your Username</h3>
+            <form onSubmit={handleLogin}>
+              <div className="mb-6">
+                <input
+                  type="text"
+                  placeholder="Choose your battle name..."
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full bg-slate-800/50 border border-green-500/30 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none"
+                  autoFocus
+                />
+              </div>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowLoginModal(false)}
+                  className="flex-1 px-4 py-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={!username.trim()}
+                  className="flex-1 bg-gradient-to-r from-green-500 to-blue-500 px-4 py-3 rounded-lg font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:hover:scale-100"
+                >
+                  Start Battle
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* Navigation */}
       <nav className="relative z-10 flex items-center justify-between p-6 md:px-12">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+          <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
             <Trophy className="w-6 h-6" />
           </div>
-          <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+          <span className="text-xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
             Budget Battle Royale
           </span>
         </div>
         <div className="hidden md:flex space-x-8">
-          <a href="#features" className="hover:text-purple-400 transition-colors">Features</a>
-          <a href="#how-it-works" className="hover:text-purple-400 transition-colors">How It Works</a>
-          <a href="#leaderboard" className="hover:text-purple-400 transition-colors">Leaderboard</a>
+          <a href="#features" className="hover:text-green-400 transition-colors">Features</a>
+          <a href="#how-it-works" className="hover:text-green-400 transition-colors">How It Works</a>
+          <a href="#leaderboard" className="hover:text-green-400 transition-colors">Leaderboard</a>
         </div>
-        <button className="bg-gradient-to-r from-purple-500 to-blue-500 px-6 py-2 rounded-lg font-semibold hover:scale-105 transition-transform">
-          Login
-        </button>
+        <div className="flex gap-3">
+          <button 
+            onClick={handleQuickStart}
+            className="hidden sm:block bg-slate-700/50 border border-green-500/30 px-4 py-2 rounded-lg font-semibold hover:border-green-400 hover:bg-green-500/10 transition-all"
+          >
+            Quick Demo
+          </button>
+          <button 
+            onClick={() => setShowLoginModal(true)}
+            className="bg-gradient-to-r from-green-500 to-blue-500 px-6 py-2 rounded-lg font-semibold hover:scale-105 transition-transform flex items-center gap-2"
+          >
+            <UserIcon className="w-4 h-4" />
+            Login
+          </button>
+        </div>
       </nav>
 
       {/* Hero Section */}
       <section className="relative z-10 px-6 md:px-12 pt-20 pb-32">
         <div className="max-w-6xl mx-auto">
           <div className={`text-center transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            <div className="inline-flex items-center bg-purple-900/30 rounded-full px-4 py-2 mb-6 border border-purple-500/30">
+            <div className="inline-flex items-center bg-green-900/30 rounded-full px-4 py-2 mb-6 border border-green-500/30">
               <Zap className="w-4 h-4 mr-2 text-yellow-400" />
               <span className="text-sm">Level up your money game</span>
             </div>
@@ -165,7 +262,7 @@ export default function BudgetBattleHomepage() {
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
               Turn Budgeting Into
               <br />
-              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-pulse">
+              <span className="bg-gradient-to-r from-green-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-pulse">
                 Epic Battles
               </span>
             </h1>
@@ -176,12 +273,18 @@ export default function BudgetBattleHomepage() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button className="group bg-gradient-to-r from-purple-500 to-blue-500 px-8 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-all duration-300 shadow-2xl shadow-purple-500/25 flex items-center">
+              <button 
+                onClick={() => setShowLoginModal(true)}
+                className="group bg-gradient-to-r from-green-500 to-blue-500 px-8 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-all duration-300 shadow-2xl shadow-green-500/25 flex items-center"
+              >
                 <Play className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
                 Start Your Battle
                 <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </button>
-              <button className="px-8 py-4 rounded-xl font-semibold border-2 border-purple-400/30 hover:border-purple-400 hover:bg-purple-400/10 transition-all duration-300">
+              <button 
+                onClick={handleQuickStart}
+                className="px-8 py-4 rounded-xl font-semibold border-2 border-green-400/30 hover:border-green-400 hover:bg-green-400/10 transition-all duration-300"
+              >
                 Watch Demo
               </button>
             </div>
@@ -191,7 +294,7 @@ export default function BudgetBattleHomepage() {
           <div className={`grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
                   {stat.number}
                 </div>
                 <div className="text-gray-400 mt-2">{stat.label}</div>
@@ -207,7 +310,7 @@ export default function BudgetBattleHomepage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Game-Changing
-              <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"> Features</span>
+              <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent"> Features</span>
             </h2>
             <p className="text-xl text-gray-300">Everything you need to dominate your finances</p>
           </div>
@@ -216,9 +319,9 @@ export default function BudgetBattleHomepage() {
             {features.map((feature, index) => (
               <div 
                 key={index} 
-                className="group bg-gradient-to-br from-purple-900/20 to-blue-900/20 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-6 hover:border-purple-400/50 hover:scale-105 transition-all duration-300 cursor-pointer"
+                className="group bg-gradient-to-br from-green-900/20 to-blue-900/20 backdrop-blur-sm border border-green-500/20 rounded-2xl p-6 hover:border-green-400/50 hover:scale-105 transition-all duration-300 cursor-pointer"
               >
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform duration-300">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform duration-300">
                   <feature.icon className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
@@ -233,7 +336,7 @@ export default function BudgetBattleHomepage() {
       <section id="how-it-works" className="relative z-10 px-6 md:px-12 py-20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-16">
-            Ready to <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Level Up?</span>
+            Ready to <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">Level Up?</span>
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -243,16 +346,16 @@ export default function BudgetBattleHomepage() {
               { step: "03", title: "Compete & Win", desc: "Battle friends and climb the leaderboard", icon: Trophy }
             ].map((item, index) => (
               <div key={index} className="relative">
-                <div className="bg-gradient-to-br from-purple-900/30 to-blue-900/30 backdrop-blur-sm border border-purple-500/30 rounded-2xl p-8 hover:scale-105 transition-transform duration-300">
-                  <div className="text-6xl font-bold text-purple-400/30 mb-4">{item.step}</div>
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-green-900/30 to-blue-900/30 backdrop-blur-sm border border-green-500/30 rounded-2xl p-8 hover:scale-105 transition-transform duration-300">
+                  <div className="text-6xl font-bold text-green-400/30 mb-4">{item.step}</div>
+                  <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center mx-auto mb-4">
                     <item.icon className="w-6 h-6" />
                   </div>
                   <h3 className="text-xl font-bold mb-3">{item.title}</h3>
                   <p className="text-gray-300">{item.desc}</p>
                 </div>
                 {index < 2 && (
-                  <ChevronRight className="hidden md:block absolute top-1/2 -right-4 w-8 h-8 text-purple-400" />
+                  <ChevronRight className="hidden md:block absolute top-1/2 -right-4 w-8 h-8 text-green-400" />
                 )}
               </div>
             ))}
@@ -263,7 +366,7 @@ export default function BudgetBattleHomepage() {
       {/* CTA Section */}
       <section className="relative z-10 px-6 md:px-12 py-20">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-sm border border-purple-500/30 rounded-3xl p-12">
+          <div className="bg-gradient-to-r from-green-900/50 to-blue-900/50 backdrop-blur-sm border border-green-500/30 rounded-3xl p-12">
             <div className="flex justify-center mb-6">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-8 h-8 text-yellow-400 fill-current" />
@@ -276,7 +379,10 @@ export default function BudgetBattleHomepage() {
             <p className="text-xl text-gray-300 mb-8">
               Thousands of students are already winning at money. Your turn to dominate.
             </p>
-            <button className="group bg-gradient-to-r from-purple-500 to-blue-500 px-10 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-all duration-300 shadow-2xl shadow-purple-500/25 flex items-center mx-auto">
+            <button 
+              onClick={() => setShowLoginModal(true)}
+              className="group bg-gradient-to-r from-green-500 to-blue-500 px-10 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-all duration-300 shadow-2xl shadow-green-500/25 flex items-center mx-auto"
+            >
               <Users className="w-5 h-5 mr-2" />
               Start Competing Now
               <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -286,13 +392,13 @@ export default function BudgetBattleHomepage() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 px-6 md:px-12 py-12 border-t border-purple-500/20">
+      <footer className="relative z-10 px-6 md:px-12 py-12 border-t border-green-500/20">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center space-x-3 mb-4 md:mb-0">
-            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
               <Trophy className="w-5 h-5" />
             </div>
-            <span className="text-lg font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="text-lg font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
               Budget Battle Royale
             </span>
           </div>
