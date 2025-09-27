@@ -1,126 +1,95 @@
 #!/usr/bin/env python3
 """
-Simple script to get financial data using your Plaid credentials
+Minimal financial data generator using Plaid API
 """
 
 from plaid_client import PlaidClient
 import json
 
-def categorize_transaction(transaction):
-    """Categorize transaction based on merchant name and other data"""
-    merchant = (transaction.get('merchant_name') or transaction.get('name', '')).lower()
-    amount = transaction.get('amount', 0)
+def create_minimal_financial_data(raw_data):
+    """Create ultra-minimal financial data with only essential information"""
     
-    # Food & Dining
-    food_keywords = ['starbucks', 'mcdonald', 'kfc', 'restaurant', 'food', 'dining', 'coffee', 'pizza', 'burger']
-    if any(keyword in merchant for keyword in food_keywords):
-        return "🍔 Food & Dining"
+    # Calculate total current balance from all accounts
+    total_balance = 0
+    for account in raw_data.get('accounts', []):
+        balance = account.get('balances', {}).get('current', 0)
+        # For credit cards, balance represents debt (negative)
+        if account.get('type') == 'credit':
+            total_balance -= balance
+        else:
+            total_balance += balance
     
-    # Transportation
-    transport_keywords = ['uber', 'lyft', 'taxi', 'airline', 'united', 'delta', 'gas', 'fuel', 'parking']
-    if any(keyword in merchant for keyword in transport_keywords):
-        return "🚗 Transportation"
+    # Extract minimal transaction data (vendor and cash flow)
+    transactions = []
+    for transaction in raw_data.get('transactions', []):
+        merchant = transaction.get('merchant_name') or transaction.get('name', 'Unknown')
+        amount = transaction.get('amount', 0)
+        
+        # Determine cash flow: positive for income, negative for expenses
+        cash_flow = -amount  # Flip the sign to make expenses negative
+        
+        transactions.append({
+            "vendor": merchant,
+            "cash_flow": cash_flow
+        })
     
-    # Shopping & Retail
-    shopping_keywords = ['amazon', 'walmart', 'target', 'shop', 'store', 'retail', 'merchandise']
-    if any(keyword in merchant for keyword in shopping_keywords):
-        return "🛍️ Shopping & Retail"
+    # Extract minimal investment data
+    investments = []
+    securities = raw_data.get('securities', [])
+    for holding in raw_data.get('holdings', []):
+        security_id = holding.get('security_id')
+        security = next((s for s in securities if s.get('security_id') == security_id), {})
+        
+        symbol = security.get('ticker_symbol', 'N/A')
+        current_value = holding.get('institution_value', 0)
+        quantity = holding.get('quantity', 0)
+        
+        # Only include investments with actual value and valid symbol
+        if symbol != 'N/A' and current_value > 0:
+            investments.append({
+                "symbol": symbol,
+                "quantity": quantity,
+                "current_value": current_value
+            })
     
-    # Entertainment
-    entertainment_keywords = ['netflix', 'spotify', 'movie', 'theater', 'game', 'entertainment', 'fun']
-    if any(keyword in merchant for keyword in entertainment_keywords):
-        return "🎬 Entertainment"
-    
-    # Bills & Utilities
-    bills_keywords = ['electric', 'water', 'gas', 'internet', 'phone', 'cable', 'utility', 'payment']
-    if any(keyword in merchant for keyword in bills_keywords):
-        return "💡 Bills & Utilities"
-    
-    # Healthcare
-    healthcare_keywords = ['hospital', 'clinic', 'pharmacy', 'medical', 'doctor', 'health']
-    if any(keyword in merchant for keyword in healthcare_keywords):
-        return "🏥 Healthcare"
-    
-    # Income & Deposits
-    if amount < 0 or 'deposit' in merchant or 'payroll' in merchant or 'salary' in merchant:
-        return "💰 Income & Deposits"
-    
-    # Credit Card Payments
-    if 'credit card' in merchant or 'payment' in merchant:
-        return "💳 Credit Card Payments"
-    
-    # Investments
-    investment_keywords = ['investment', 'stock', 'bond', 'fund', 'brokerage']
-    if any(keyword in merchant for keyword in investment_keywords):
-        return "📈 Investments"
-    
-    # Default category
-    return "📋 Other"
+    return {
+        "current_balance": total_balance,
+        "transactions": transactions,
+        "investments": investments
+    }
 
 def main():
-    """Get financial data using your credentials"""
+    """Generate minimal financial data"""
     
-    # Initialize client (reads from .env file)
+    # Initialize client
     client = PlaidClient()
     
-    print("🚀 Getting Financial Data from Your Account")
-    print("=" * 50)
+    print("🚀 Generating Minimal Financial Data")
+    print("=" * 40)
     
-    # Option 1: Get test data (works immediately)
-    print("\n📊 Getting Sandbox Test Data...")
+    # Get sandbox test data
+    print("\n📊 Fetching data from Plaid...")
     test_data = client.get_sandbox_data_with_transactions()
     
     if 'error' not in test_data:
-        print("✅ Test data retrieved successfully!")
-        print(f"   📈 Accounts: {len(test_data['accounts'])}")
-        print(f"   💳 Transactions: {len(test_data['transactions'])}")
-        print(f"   📊 Holdings: {len(test_data['holdings'])}")
+        print("✅ Data retrieved successfully!")
+        
+        # Create minimal version
+        minimal_data = create_minimal_financial_data(test_data)
         
         # Save to file
-        client.save_data_to_file(test_data, 'my_financial_data.json')
-        print("💾 Data saved to 'my_financial_data.json'")
+        with open('minimal_financial_data.json', 'w') as f:
+            json.dump(minimal_data, f, indent=2, default=str)
+        print("💾 Minimal data saved to 'minimal_financial_data.json'")
         
-        # Show sample data
-        print("\n📋 Sample Account Data:")
-        if test_data['accounts']:
-            account = test_data['accounts'][0]
-            print(f"   Account: {account['name']}")
-            print(f"   Balance: ${account['balances']['current']}")
-            print(f"   Type: {account['type']}")
-        
-        print("\n📋 All Transactions:")
-        if test_data['transactions']:
-            for i, transaction in enumerate(test_data['transactions'], 1):
-                merchant = transaction.get('merchant_name') or transaction.get('name', 'Unknown')
-                amount = transaction.get('amount', 0)
-                category = categorize_transaction(transaction)
-                
-                # Format the display with category
-                print(f"   {i:2d}. {merchant}, ${amount:,.2f}, {category}")
-        else:
-            print("   No transactions found")
+        # Show summary
+        print(f"\n📊 Summary:")
+        print(f"   Current Balance: ${minimal_data['current_balance']:,.2f}")
+        print(f"   Total Transactions: {len(minimal_data['transactions'])}")
+        print(f"   Total Investments: {len(minimal_data['investments'])}")
     
     else:
         print(f"❌ Error: {test_data['error']}")
-    
-    # Option 2: Show how to get real data
-    print("\n" + "="*50)
-    print("🔐 TO GET REAL DATA FROM YOUR BANK:")
-    print("="*50)
-    print("1. Use the Link token with Plaid Link on your frontend")
-    print("2. Connect your bank account")
-    print("3. Exchange public_token for access_token")
-    print("4. Call client.get_complete_financial_data()")
-    
-    # Create link token for real data
-    print("\n🔗 Creating Link Token...")
-    link_response = client.create_link_token()
-    
-    if 'error' not in link_response:
-        print(f"✅ Link token: {link_response['link_token']}")
-        print("\n💡 Use this token with Plaid Link to connect your bank!")
-    else:
-        print(f"❌ Error creating link token: {link_response['error']}")
 
 if __name__ == "__main__":
     main()
