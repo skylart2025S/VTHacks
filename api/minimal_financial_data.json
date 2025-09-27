@@ -1,0 +1,136 @@
+{
+  "current_balance": 202675.8005,
+  "transactions": [
+    {
+      "vendor": "Tectra Inc",
+      "cash_flow": -500.0
+    },
+    {
+      "vendor": "AUTOMATIC PAYMENT - THANK",
+      "cash_flow": -2078.5
+    },
+    {
+      "vendor": "KFC",
+      "cash_flow": -500.0
+    },
+    {
+      "vendor": "Madison Bicycle Shop",
+      "cash_flow": -500.0
+    },
+    {
+      "vendor": "CREDIT CARD 3333 PAYMENT *//",
+      "cash_flow": -25.0
+    },
+    {
+      "vendor": "Uber",
+      "cash_flow": -5.4
+    },
+    {
+      "vendor": "ACH Electronic CreditGUSTO PAY 123456",
+      "cash_flow": -5850.0
+    },
+    {
+      "vendor": "CD DEPOSIT .INITIAL.",
+      "cash_flow": -1000.0
+    },
+    {
+      "vendor": "Touchstone Climbing",
+      "cash_flow": -78.5
+    },
+    {
+      "vendor": "United Airlines",
+      "cash_flow": 500.0
+    },
+    {
+      "vendor": "McDonald's",
+      "cash_flow": -12.0
+    },
+    {
+      "vendor": "Starbucks",
+      "cash_flow": -4.33
+    },
+    {
+      "vendor": "FUN",
+      "cash_flow": -89.4
+    },
+    {
+      "vendor": "INTRST PYMNT",
+      "cash_flow": 4.22
+    },
+    {
+      "vendor": "United Airlines",
+      "cash_flow": -500.0
+    },
+    {
+      "vendor": "Uber",
+      "cash_flow": -6.33
+    }
+  ],
+  "investments": [
+    {
+      "symbol": null,
+      "quantity": 0.01,
+      "current_value": 0.01
+    },
+    {
+      "symbol": "ACHN",
+      "quantity": 1.0,
+      "current_value": 2.11
+    },
+    {
+      "symbol": "DBLTX",
+      "quantity": 2.0,
+      "current_value": 20.84
+    },
+    {
+      "symbol": "NFLX180201C00355000",
+      "quantity": 10000.0,
+      "current_value": 110.0
+    },
+    {
+      "symbol": "BTC",
+      "quantity": 0.00293644,
+      "current_value": 115.57268
+    },
+    {
+      "symbol": "EWZ",
+      "quantity": 5.0,
+      "current_value": 210.75
+    },
+    {
+      "symbol": null,
+      "quantity": 21.5,
+      "current_value": 430.0
+    },
+    {
+      "symbol": "MIPTX",
+      "quantity": 23.567,
+      "current_value": 636.309
+    },
+    {
+      "symbol": null,
+      "quantity": 10.0,
+      "current_value": 948.08
+    },
+    {
+      "symbol": "NHX105509",
+      "quantity": 100.05,
+      "current_value": 1373.6865
+    },
+    {
+      "symbol": "CAMYX",
+      "quantity": 75.75,
+      "current_value": 1855.875
+    },
+    {
+      "symbol": "SBSI",
+      "quantity": 213.0,
+      "current_value": 7397.49
+    },
+    {
+      "symbol": null,
+      "quantity": 12345.67,
+      "current_value": 12345.67
+    }
+  ]
+}
