@@ -1,9 +1,5 @@
-langchain
-wikipedia
-langchain-community
-langchain-google-genai
-langchain-core
+langchain 
+langchain-ollama
+langchain-chroma
 python-dotenv
 pydantic
-ddgs
-

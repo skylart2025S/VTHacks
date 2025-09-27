@@ -3,134 +3,114 @@ from pydantic import BaseModel
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
-from langchain.agents import initialize_agent, AgentType, AgentExecutor
-from tools import (
-    spending_analysis_tool, budget_optimization_tool, debt_reduction_tool,
-    investment_advice_tool, savings_goal_tool, financial_score_tool,
-    search_tool, save_tool
-)
+from langchain.agents import create_tool_calling_agent, AgentExecutor
+# Import all financial tools
+from tools import analyze_spending_patterns, optimize_debt_repayment, analyze_investment_portfolio, get_financial_score
+import os
 import json
 
+# Fix SSL issues
+os.environ["GRPC_DEFAULT_SSL_ROOTS_FILE_PATH"] = ""
+os.environ["REQUESTS_CA_BUNDLE"] = "/etc/ssl/certs/ca-certificates.crt"
 
 load_dotenv()
 
+def load_financial_data():
+    """Load financial data from JSON file"""
+    # Fix the tuple issue by removing the comma
+    path = '../api/minimal_financial_data.json'  
+    
+    if os.path.exists(path):
+        with open(path, 'r') as f:
+            data = json.load(f)
+            print(f"✅ Loaded financial data from {path}")
+            return data
+                
+    # If no file found, raise error
+    raise FileNotFoundError("Could not locate financial data file")
 
+# Financial advice response model that matches our use case
 class FinancialAdviceResponse(BaseModel):
     financial_score: int
-    key_recommendations: list[str]
-    action_plan: list[str]
-    tools_used: list[str]
-    priority_areas: list[str]
+    key_recommendations: list[str]  # Will contain exactly 3 recommendations
 
-
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.1)
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro", temperature=0.1)
 parser = PydanticOutputParser(pydantic_object=FinancialAdviceResponse)
 
+prompt = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            """
+            You are a financial advisor that provides personalized recommendations to improve financial wellness.
+            
+            Analyze the provided financial data and use the tools to develop specific, actionable recommendations.
+            
+            Your response should include:
+            1. A financial wellness score (0-100)
+            2. Three key recommendations to improve financial health in short sentences.
+            
+            Wrap your output in this format and provide no other text:
+            {format_instructions}
+            """,
+        ),
+        ("placeholder", "{chat_history}"),
+        ("human", "{query}"),
+        ("placeholder", "{agent_scratchpad}"),
+    ]
+).partial(format_instructions=parser.get_format_instructions())
 
-# Financial advisory tools
+# Use our financial tools instead of search/wiki
 tools = [
-    financial_score_tool,
-    spending_analysis_tool,
-    budget_optimization_tool,
-    debt_reduction_tool,
-    investment_advice_tool,
-    savings_goal_tool,
-    search_tool,
-    save_tool
+    get_financial_score,
+    analyze_spending_patterns, 
+    optimize_debt_repayment,
+    analyze_investment_portfolio,
 ]
 
-
-# The ZERO_SHOT_REACT_DESCRIPTION agent uses its own prompt template
-# We can customize the system message through the agent_kwargs if needed
-
-
-agent_executor = initialize_agent(
-    tools=tools,
+agent = create_tool_calling_agent(
     llm=llm,
-    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
-    verbose=True,
-    return_intermediate_steps=True,
-    handle_parsing_errors=True,
-    agent_kwargs={
-        "prefix": """You are a concise financial advisor AI. Your goal is to provide BRIEF, actionable advice to improve the user's financial score.
-
-
-IMPORTANT: Your final answer MUST be valid JSON with these fields:
-- financial_score (number)
-- key_recommendations (array of 3 short strings)
-- action_plan (array of 3 actionable steps)
-- tools_used (array of tool names you used)
-- priority_areas (array of 2-3 focus areas)
-
-
-Keep recommendations SHORT (1-2 sentences max). Focus on the TOP 3 highest impact changes."""
-    }
+    prompt=prompt,
+    tools=tools
 )
 
+agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 
-# Demo: Load sample financial data or get user input
-print("=== Financial Advisory AI ===")
-print("1. Use sample data from API folder")
-print("2. Enter your own financial data (JSON)")
-choice = input("Choose option (1 or 2): ")
-
-
-if choice == "1":
-    # Load sample data
+def main():
     try:
-        with open('../api/sample.json', 'r') as f:
-            financial_data = json.load(f)
-        query = f"Analyze my financial situation and provide comprehensive advice. Here's my financial data: {json.dumps(financial_data)}"
-    except FileNotFoundError:
-        print("Sample data not found. Please ensure sample.json exists in the api folder.")
-        query = "Provide general financial advice for building wealth."
-else:
-    query = input("Please provide your financial data (JSON format) or describe your financial situation: ")
+        # Load the financial data
+        financial_data = load_financial_data()
+        
+        # Create a query that includes the financial data
+        query = f"Analyze my financial situation and provide a personalized financial plan. Here's my financial data: {json.dumps(financial_data)}"
+        
+        print("\n🤖 Analyzing your financial situation...")
+        print("This may take a moment as the AI evaluates your data...\n")
+        
+        # Run the agent with the financial data
+        raw_response = agent_executor.invoke({"query": query})
+        output_text = raw_response["output"]
 
+        try:
+            structured_response = parser.parse(output_text)
+            
+            print("\n===== YOUR FINANCIAL ASSESSMENT =====\n")
+            print(f"📊 FINANCIAL WELLNESS SCORE: {structured_response.financial_score}/100\n")
+            
+            print("🎯 KEY RECOMMENDATIONS:")
+            for i, rec in enumerate(structured_response.key_recommendations, 1):
+                print(f"  {i}. {rec}")
+                    
+        except Exception as e:
+            print(f"Error parsing response: {e}")
+            print("\nRaw Financial Advice:")
+            print(output_text)
+            
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
+        print("Please make sure the financial data file exists at '../api/my_financial_data.json'")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
 
-raw_response = agent_executor.invoke({"input": query})
-
-
-try:
-    output_text = raw_response["output"]
-   
-    # Try to extract JSON from the output if it's embedded in text
-    import re
-    json_match = re.search(r'\{[^{}]*"financial_score"[^{}]*\}', output_text, re.DOTALL)
-    if json_match:
-        json_text = json_match.group(0)
-        structured_response = parser.parse(json_text)
-    else:
-        structured_response = parser.parse(output_text)
-   
-    print(f"\n=== FINANCIAL ANALYSIS RESULTS ===")
-    print(f"Financial Score: {structured_response.financial_score}/100")
-    print(f"\nKey Recommendations:")
-    for i, rec in enumerate(structured_response.key_recommendations, 1):
-        print(f"{i}. {rec}")
-   
-    print(f"\nAction Plan:")
-    for i, action in enumerate(structured_response.action_plan, 1):
-        print(f"{i}. {action}")
-   
-    print(f"\nPriority Areas: {', '.join(structured_response.priority_areas)}")
-    print(f"Tools Used: {', '.join(structured_response.tools_used)}")
-   
-except Exception as e:
-    print(f"Failed to parse structured response: {e}")
-    print(f"\n=== RAW FINANCIAL ADVICE ===")
-    output = raw_response.get("output", "No output available")
-   
-    # Try to extract key insights from the raw output
-    print("Key insights from the analysis:")
-    lines = output.split('\n')
-    for line in lines:
-        if any(keyword in line.lower() for keyword in ['recommend', 'should', 'increase', 'reduce', 'pay']):
-            if len(line.strip()) > 10 and len(line) < 200:  # Reasonable length
-                print(f"• {line.strip()}")
-   
-    print(f"\nFull output available if needed.")
-
-
-
-
+if __name__ == "__main__":
+    main()
