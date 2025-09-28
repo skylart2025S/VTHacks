@@ -297,6 +297,9 @@ export default function RoomPage({ params }: { params: { roomId: string } }) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [copied, setCopied] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [roomExists, setRoomExists] = useState<boolean | null>(null);
+  const [roomData, setRoomData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   // Mock data for demonstration
   const leaderboard = [
@@ -335,6 +338,31 @@ export default function RoomPage({ params }: { params: { roomId: string } }) {
     { date: "Dec 31", event: "Year-end Summary", time: "11:59 PM" },
   ];
 
+  // Check if room exists when component mounts
+  useEffect(() => {
+    const checkRoomExists = async () => {
+      try {
+        const response = await fetch(`/api/rooms/join?roomId=${params.roomId}`);
+        const data = await response.json();
+        
+        if (data.exists) {
+          setRoomExists(true);
+          setRoomData(data.room);
+          setRoomName(data.room.name);
+        } else {
+          setRoomExists(false);
+        }
+      } catch (error) {
+        console.error('Error checking room:', error);
+        setRoomExists(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkRoomExists();
+  }, [params.roomId]);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -363,6 +391,57 @@ export default function RoomPage({ params }: { params: { roomId: string } }) {
       copyInviteLink();
     }
   };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white flex items-center justify-center font-clash">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+            <Trophy className="w-8 h-8" />
+          </div>
+          <div className="text-xl font-bold mb-2">Loading Room...</div>
+          <div className="text-gray-400">Checking if room exists</div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error if room doesn't exist
+  if (roomExists === false) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white flex items-center justify-center font-clash">
+        <div className="text-center max-w-md mx-auto p-8">
+          <div className="w-20 h-20 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+            </svg>
+          </div>
+          <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">
+            No Room Available
+          </h1>
+          <p className="text-gray-400 mb-6">
+            The room code <span className="font-bold text-white">{params.roomId}</span> does not exist. 
+            Please check the room code and try again.
+          </p>
+          <div className="space-y-4">
+            <button
+              onClick={() => router.push('/rooms')}
+              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
+            >
+              Browse Available Rooms
+            </button>
+            <button
+              onClick={() => router.push('/')}
+              className="w-full bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
+            >
+              Go Home
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white overflow-hidden relative font-clash">

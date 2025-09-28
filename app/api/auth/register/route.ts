@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { users } from '../users';
+import { setSession } from '../../../lib/session';
 
 export async function POST(request: NextRequest) {
   try {
@@ -46,6 +47,9 @@ export async function POST(request: NextRequest) {
       username: username.toLowerCase(),
       passwordHash
     });
+
+    // Set session
+    setSession(username.toLowerCase());
 
     return NextResponse.json(
       { message: 'Account created successfully', username },
