@@ -5,20 +5,41 @@ import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!username.trim()) return;
+    if (!username.trim() || !password.trim()) return;
     
     setIsLoading(true);
+    setError("");
     
-    // Simulate login delay
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Success - redirect to rooms
+        router.push("/rooms");
+      } else {
+        // Handle error - username exists or other error
+        setError(data.message || "An error occurred");
+      }
+    } catch (err) {
+      setError("Network error. Please try again.");
+    } finally {
       setIsLoading(false);
-      router.push("/rooms");
-    }, 1000);
+    }
   };
 
   return (
@@ -31,8 +52,8 @@ export default function LandingPage() {
           </h1>
           <p className="text-gray-400 text-lg">
             Split your finances, not your friendships
-              </p>
-            </div>
+          </p>
+        </div>
 
         {/* Login Form */}
         <form onSubmit={handleLogin} className="space-y-6">
@@ -46,23 +67,40 @@ export default function LandingPage() {
               required
             />
           </div>
+
+          <div>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-6 py-4 bg-slate-800/50 border border-slate-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400/20 transition-all"
+              required
+            />
+          </div>
+
+          {error && (
+            <div className="text-red-400 text-sm bg-red-950/30 border border-red-800 rounded-lg px-4 py-2">
+              {error}
+            </div>
+          )}
           
           <button
             type="submit"
-            disabled={isLoading || !username.trim()}
+            disabled={isLoading || !username.trim() || !password.trim()}
             className="w-full bg-gradient-to-r from-green-500 to-blue-500 py-4 rounded-lg font-semibold text-white hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
             {isLoading ? (
               <div className="flex items-center justify-center gap-2">
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                Signing In...
+                Creating Account...
               </div>
             ) : (
-              "Sign In"
+              "Create Account"
             )}
-            </button>
+          </button>
         </form>
-        </div>
+      </div>
     </div>
   );
 }

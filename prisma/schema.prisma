@@ -1,0 +1,93 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // or "sqlite" for development
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+// Alternative API route using Prisma
+// app/api/auth/register/route.ts (with database)
+/*
+import { NextRequest, NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
+
+const prisma = new PrismaClient();
+
+export async function POST(request: NextRequest) {
+  try {
+    const { username, password } = await request.json();
+
+    if (!username || !password) {
+      return NextResponse.json(
+        { message: 'Username and password are required' },
+        { status: 400 }
+      );
+    }
+
+    if (username.length < 3) {
+      return NextResponse.json(
+        { message: 'Username must be at least 3 characters long' },
+        { status: 400 }
+      );
+    }
+
+    if (password.length < 6) {
+      return NextResponse.json(
+        { message: 'Password must be at least 6 characters long' },
+        { status: 400 }
+      );
+    }
+
+    // Check if username already exists
+    const existingUser = await prisma.user.findUnique({
+      where: { username: username.toLowerCase() }
+    });
+
+    if (existingUser) {
+      return NextResponse.json(
+        { message: 'Username already exists. Please choose a different username.' },
+        { status: 409 }
+      );
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    // Create the user
+    const user = await prisma.user.create({
+      data: {
+        username: username.toLowerCase(),
+        password: hashedPassword
+      }
+    });
+
+    return NextResponse.json(
+      { message: 'Account created successfully', username: user.username },
+      { status: 201 }
+    );
+
+  } catch (error) {
+    console.error('Registration error:', error);
+    return NextResponse.json(
+      { message: 'Internal server error' },
+      { status: 500 }
+    );
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+*/
