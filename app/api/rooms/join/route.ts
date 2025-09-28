@@ -1,7 +1,8 @@
 // app/api/rooms/join/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { rooms, roomExists, getRoomById } from '../rooms';
+import { roomExists, getRoomById } from '../rooms';
 import { getCurrentUsername } from '../../../lib/session';
+import { getCollectionForDB } from '../../../db';
 
 export async function POST(request: NextRequest) {
   try {
@@ -53,6 +54,18 @@ export async function POST(request: NextRequest) {
 
     // Add user to room
     room.members.push(normalizedUsername);
+
+    // Persist membership change to MongoDB (best-effort)
+    try {
+      const roomsCollection = await getCollectionForDB('rooms_database', 'rooms');
+      if (roomsCollection) {
+        await roomsCollection.updateOne({ id: room.id }, { $addToSet: { members: normalizedUsername } });
+      } else {
+        console.warn('Rooms DB unavailable: skipping persistent member update');
+      }
+    } catch (dbErr) {
+      console.error('Failed to persist room membership to MongoDB:', dbErr);
+    }
 
     return NextResponse.json(
       { 

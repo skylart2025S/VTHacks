@@ -1,11 +1,11 @@
 // app/api/auth/register/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { getCollection } from '../../../db';
+import { getCollection, getCollectionForDB } from '../../../db';
 import { setSession } from '@/lib/session';
 export async function POST(request: NextRequest) {
   try {
-    const { username, password } = await request.json();
+  const { username, password, roomId } = await request.json();
 
     // Validate input
     if (!username || !password) {
@@ -55,9 +55,31 @@ export async function POST(request: NextRequest) {
       password: passwordHash,
       roomId: '',
       financial_data: {},
-      id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` // Generate unique ID
+  id: `user_${Date.now()}_${Math.random().toString(36).slice(2, 11)}` // Generate unique ID
     };
     await usersCollection.insertOne(newUser);
+
+      // If the client requested a room to be created/added, store it in the rooms DB
+      if (roomId) {
+        try {
+          const roomsCollection = await getCollectionForDB('rooms_database', 'rooms');
+          if (roomsCollection) {
+            const roomDoc = {
+              id: roomId,
+              createdAt: new Date(),
+              creator: newUser.username,
+              members: [newUser.id]
+            };
+            await roomsCollection.insertOne(roomDoc);
+            // attach roomId to user document (optional)
+            await usersCollection.updateOne({ id: newUser.id }, { $set: { roomId } });
+          } else {
+            console.warn('Rooms DB connection not available; skipping room insert');
+          }
+        } catch (roomErr) {
+          console.error('Error inserting room:', roomErr);
+        }
+      }
 
     // Set session
     setSession(username.toLowerCase());

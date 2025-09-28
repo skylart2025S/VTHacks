@@ -1,7 +1,7 @@
 // app/api/auth/signin/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { users } from '../users';
+import { getCollection } from '../../../db';
 import { setSession } from '../../../lib/session';
 
 export async function POST(request: NextRequest) {
@@ -16,9 +16,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Find user by username (case-insensitive)
-    const user = users.find(u => u.username.toLowerCase() === username.toLowerCase());
-    
+    // Find user in the database by username (case-insensitive)
+    const usersCollection = await getCollection('users');
+    if (!usersCollection) {
+      return NextResponse.json(
+        { message: 'Database connection error' },
+        { status: 500 }
+      );
+    }
+
+    const user = await usersCollection.findOne({ username: username.toLowerCase() });
+
     if (!user) {
       return NextResponse.json(
         { message: 'Invalid username or password' },
@@ -26,8 +34,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Verify password
-    const isValidPassword = await bcrypt.compare(password, user.passwordHash);
+    // Verify password (password field stores the hashed password)
+    const isValidPassword = await bcrypt.compare(password, user.password);
     
     if (!isValidPassword) {
       return NextResponse.json(
@@ -36,8 +44,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Set session
-    setSession(user.username);
+  // Set session (store username lowercase)
+  setSession(user.username.toLowerCase());
 
     // Sign in successful
     return NextResponse.json(
@@ -66,6 +74,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ exists: false }, { status: 400 });
   }
 
-  const exists = users.some(user => user.username.toLowerCase() === username.toLowerCase());
-  return NextResponse.json({ exists });
+  const usersCollection = await getCollection('users');
+  if (!usersCollection) {
+    return NextResponse.json({ exists: false }, { status: 500 });
+  }
+
+  const exists = await usersCollection.findOne({ username: username.toLowerCase() });
+  return NextResponse.json({ exists: !!exists });
 }

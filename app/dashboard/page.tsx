@@ -34,53 +34,79 @@ function DashboardContent() {
     setRoomCode(room);
     setUserRole(role || "member");
 
-    // Simulate loading room data
-    setTimeout(() => {
-      // Mock room members data
-      const mockMembers: RoomMember[] = [
-        {
-          id: "1",
-          username: "Alex Chen",
-          points: 1250,
-          isOnline: true,
-          lastActive: "now",
-        },
-        {
-          id: "2", 
-          username: "Sarah Kim",
-          points: 980,
-          isOnline: true,
-          lastActive: "2 min ago",
-        },
-        {
-          id: "3",
-          username: "Mike Johnson", 
-          points: 1150,
-          isOnline: false,
-          lastActive: "1 hour ago",
-        },
-        {
-          id: "4",
-          username: "Emma Davis",
-          points: 890,
-          isOnline: true,
-          lastActive: "5 min ago",
-        },
-      ];
+    // Fetch real users from our API
+    async function loadMembers() {
+      try {
+        setIsLoading(true);
 
-      // Add current user to members list
-      const currentUser: RoomMember = {
-        id: "current",
-        username: "You",
-        points: 1100,
-        isOnline: true,
-        lastActive: "now",
-      };
+        const [usersRes, sessionRes] = await Promise.all([
+          fetch('/api/auth/list'),
+          fetch('/api/auth/session')
+        ]);
 
-      setMembers([currentUser, ...mockMembers]);
-      setUserPoints(currentUser.points);
-      setIsLoading(false);
-    }, 1500);
+        if (!usersRes.ok) throw new Error('Failed to load users');
+
+        const usersJson = await usersRes.json();
+        const sessionJson = sessionRes.ok ? await sessionRes.json() : { username: null };
+
+        let fetched: RoomMember[] = (usersJson.users || []).map((u: any) => {
+          // Use DB username when present; fall back to id
+          const username = (u.username || u.id || u._id?.toString() || 'User').toString();
+
+          // Generate randomized display values so the leaderboard looks lively
+          const points = Math.floor(Math.random() * 3000) + 200; // 200..3199
+          const isOnline = Math.random() < 0.6; // ~60% chance online
+          const lastActive = isOnline ? 'now' : `${Math.floor(Math.random() * 59) + 1} min ago`;
+
+          return {
+            id: u.id || u._id?.toString() || username,
+            username,
+            points,
+            isOnline,
+            lastActive
+          } as RoomMember;
+        });
+
+        // If the DB returned no users, generate a handful of random users locally
+        if (!fetched.length) {
+          const sampleNames = [
+            'Alex Chen','Sarah Kim','Mike Johnson','Emma Davis','Jordan Lee','Taylor Nguyen',
+            'Chris Park','Ava Martinez','Noah Brown','Liam Wilson','Olivia Garcia','Sophia Patel'
+          ];
+
+          fetched = Array.from({ length: 6 }).map((_, i) => {
+            const username = sampleNames[i % sampleNames.length] + (Math.random() < 0.4 ? ` ${Math.floor(Math.random()*90)+10}` : '');
+            const points = Math.floor(Math.random() * 3000) + 200;
+            const isOnline = Math.random() < 0.6;
+            const lastActive = isOnline ? 'now' : `${Math.floor(Math.random() * 59) + 1} min ago`;
+            return { id: `local_${i}_${Date.now()}`, username, points, isOnline, lastActive } as RoomMember;
+          });
+        }
+
+        // If current session exists, mark it as current and place at top
+        const currentUsername = sessionJson.username;
+
+        let currentUser: RoomMember | null = null;
+        if (currentUsername) {
+          const currentLower = currentUsername.toString().toLowerCase();
+          const found = fetched.find(f => f.username.toString().toLowerCase() === currentLower);
+          if (found) {
+            currentUser = { ...found, id: 'current' };
+          }
+        }
+
+        const finalMembers = currentUser ? [currentUser, ...fetched.filter(m => m.id !== currentUser?.id && m.username !== currentUser.username)] : fetched;
+
+        setMembers(finalMembers);
+        setUserPoints(currentUser ? currentUser.points : (finalMembers[0]?.points || 0));
+      } catch (e) {
+        console.error('Error loading members for dashboard', e);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadMembers();
   }, [searchParams, router]);
 
   const addPoints = (points: number) => {
@@ -178,7 +204,15 @@ function DashboardContent() {
             <div className="bg-gradient-to-br from-slate-900/50 to-blue-900/30 border border-blue-500/30 rounded-2xl p-8">
               <h2 className="text-2xl font-bold text-white mb-6">Room Leaderboard</h2>
               <div className="space-y-4">
-                {sortedMembers.map((member, index) => (
+                {sortedMembers.map((member, index) => {
+                  const rankClass = (() => {
+                    if (index === 0) return "bg-yellow-500 text-yellow-900";
+                    if (index === 1) return "bg-gray-400 text-gray-900";
+                    if (index === 2) return "bg-orange-500 text-orange-900";
+                    return "bg-slate-600 text-white";
+                  })();
+
+                  return (
                   <div
                     key={member.id}
                     className={`flex items-center justify-between p-4 rounded-lg transition-all duration-300 ${
@@ -189,12 +223,7 @@ function DashboardContent() {
                   >
                     <div className="flex items-center gap-4">
                       {/* Rank */}
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
-                        index === 0 ? "bg-yellow-500 text-yellow-900" :
-                        index === 1 ? "bg-gray-400 text-gray-900" :
-                        index === 2 ? "bg-orange-500 text-orange-900" :
-                        "bg-slate-600 text-white"
-                      }`}>
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${rankClass}`}>
                         {index + 1}
                       </div>
                       
@@ -224,7 +253,8 @@ function DashboardContent() {
                       <div className="text-sm text-gray-400">points</div>
                     </div>
                   </div>
-                ))}
+                );
+                })}
               </div>
             </div>
           </div>

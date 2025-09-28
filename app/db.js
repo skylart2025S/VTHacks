@@ -28,3 +28,10 @@ export async function getCollection(collectionName) {
     if (db) return db.collection(collectionName);
     return null;
 }
+
+// Get a collection from any database name (useful for storing rooms in a separate DB)
+export async function getCollectionForDB(dbName, collectionName) {
+    const db = await getDB(dbName);
+    if (db) return db.collection(collectionName);
+    return null;
+}

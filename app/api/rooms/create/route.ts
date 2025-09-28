@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { rooms, generateRoomId, Room } from '../rooms';
 import { getCurrentUsername } from '../../../lib/session';
+import { getCollectionForDB } from '../../../db';
 
 export async function POST(request: NextRequest) {
   try {
@@ -46,6 +47,18 @@ export async function POST(request: NextRequest) {
 
     // Store the room
     rooms.push(newRoom);
+
+    // Persist to MongoDB rooms database (best-effort)
+    try {
+      const roomsCollection = await getCollectionForDB('rooms_database', 'rooms');
+      if (roomsCollection) {
+        await roomsCollection.insertOne(newRoom);
+      } else {
+        console.warn('Rooms DB unavailable: skipping persistent room insert');
+      }
+    } catch (dbErr) {
+      console.error('Failed to persist room to MongoDB:', dbErr);
+    }
 
     return NextResponse.json(
       { 
