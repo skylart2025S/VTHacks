@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getCollection } from '../../../../db';
+import { getCollection } from "../../../db";
 
 function hashStringToNumber(s: string) {
   let h = 0;
