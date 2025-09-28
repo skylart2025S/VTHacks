@@ -1,3 +1,5 @@
+// This file should only contain client-side React code (hooks, UI, etc.)
+// Do not include any server-side API route logic or database queries here.
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
@@ -47,7 +49,7 @@ function DashboardContent() {
     // Fetch real users from our API
     async function loadMembers() {
       try {
-        setIsLoading (true);
+        setIsLoading(true);
         // 1) Get room info (members) from rooms API
             const roomId = room as string;
             const roomRes = await fetch(`/api/rooms/join?roomId=${encodeURIComponent(roomId)}`);
@@ -59,34 +61,19 @@ function DashboardContent() {
           return;
         }
 
-  // roomJson.room.members exists on the room object, but we query the DB for users by roomId
+        const memberUsernames: string[] = (roomJson.room.members || []).map((m: any) => m.toString());
 
-        // Fetch user documents for this room from our new endpoint
-        let fetched: RoomMember[] = [];
-        try {
-          const membersRes = await fetch(`/api/rooms/members?roomId=${encodeURIComponent(roomId)}`);
-            if (membersRes.ok) {
-              const membersJson = await membersRes.json();
-              const raw = Array.isArray(membersJson.users) ? membersJson.users : (membersJson.users || []);
-              // Map to RoomMember but only use username (from DB). Points/online will be zero/false.
-              fetched = raw.map((u: any) => ({
-                id: u.id ?? u._id ?? u.username,
-                username: u.username ?? (u.id ?? '').toString(),
-                points: 0,
-                isOnline: false,
-                lastActive: 'unknown'
-              } as RoomMember));
-          } else {
-            console.warn('Failed to load room members from DB, status:', membersRes.status);
-            // Fallback: use raw member usernames
-            // If DB call failed, fall back to empty list (do not synthesize sample data)
-            fetched = [];
-          }
-        } catch (err) {
-          console.warn('Error fetching room members:', err);
-          // On error, fall back to empty list rather than synthesizing example data
-          fetched = [];
-        }
+        // Build simple member entries directly from the room's members.
+        // We no longer rely on /api/auth/list sample data — just display usernames from the room.
+        const fetched: RoomMember[] = memberUsernames.map((memberName: string) => {
+          return {
+            id: memberName,
+            username: memberName,
+            points: 0,
+            isOnline: false,
+            lastActive: 'unknown'
+          } as RoomMember;
+        });
 
         // Mark current session user if present
   const sessionRes = await fetch('/api/auth/session');

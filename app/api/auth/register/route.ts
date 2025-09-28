@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     const newUser = {
       username: username.toLowerCase(),
       password: passwordHash,
-      roomId: '',
+      roomId: trimmedRoomId || '',
       financial_data: {}, // Start with empty financial data - will be populated with unique data
       id: `user_${Date.now()}_${Math.random().toString(36).slice(2, 11)}` // Generate unique ID
     };
