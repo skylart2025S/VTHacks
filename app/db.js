@@ -1,4 +1,5 @@
 const { version } = require("os");
+const { MongoClient } = require("mongodb");
 
 if (!process.env.DB_URI) {
   throw new Error("Please add your Mongo URI to .env.local");
@@ -23,7 +24,7 @@ async function getDB(name) {
 }
 
 export async function getCollection(collectionName) {
-    const db = await getDB('vthacks13');
+    const db = await getDB('user_database');
     if (db) return db.collection(collectionName);
     return null;
 }

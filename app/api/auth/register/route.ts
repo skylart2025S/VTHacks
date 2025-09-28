@@ -1,9 +1,8 @@
 // app/api/auth/register/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { users } from '../users';
-import { setSession } from '../../../lib/session';
-
+import { getCollection } from '../../../db';
+import { setSession } from '@/lib/session';
 export async function POST(request: NextRequest) {
   try {
     const { username, password } = await request.json();
@@ -30,8 +29,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if username already exists
-    const existingUser = users.find(user => user.username.toLowerCase() === username.toLowerCase());
+    // Check if usersCollection is available
+    const usersCollection = await getCollection('users');
+    if (!usersCollection) {
+      return NextResponse.json(
+        { message: 'Database connection error' },
+        { status: 500 }
+      );
+    }
+
+    const existingUser = await usersCollection.findOne({ username: username.toLowerCase() });
     if (existingUser) {
       return NextResponse.json(
         { message: 'Username already exists. Please choose a different username.' },
@@ -45,10 +52,12 @@ export async function POST(request: NextRequest) {
     // Store the user (in production, save to database)
     const newUser = {
       username: username.toLowerCase(),
-      passwordHash,
+      password: passwordHash,
+      roomId: '',
+      financial_data: {},
       id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` // Generate unique ID
     };
-    users.push(newUser);
+    await usersCollection.insertOne(newUser);
 
     // Set session
     setSession(username.toLowerCase());
@@ -124,6 +133,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ available: false }, { status: 400 });
   }
 
-  const exists = users.some(user => user.username.toLowerCase() === username.toLowerCase());
+  const usersCollection = await getCollection('users');
+  if (!usersCollection) {
+    return NextResponse.json({ available: false }, { status: 500 });
+  }
+  const exists = await usersCollection.findOne({ username: username.toLowerCase() });
   return NextResponse.json({ available: !exists });
 }
