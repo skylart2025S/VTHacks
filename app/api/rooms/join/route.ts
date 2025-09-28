@@ -107,7 +107,7 @@ export async function GET(request: NextRequest) {
   // If not found in-memory, try DB (useful after server restarts where in-memory state is lost)
   if (!room) {
     try {
-      const roomsCollection = await getCollectionForDB('rooms_database', 'rooms');
+      const roomsCollection = await getCollectionForDB('user_database', 'rooms');
       if (roomsCollection) {
         const doc = await roomsCollection.findOne({ id: roomId });
         if (doc) {

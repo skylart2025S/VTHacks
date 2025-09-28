@@ -346,7 +346,7 @@ export default function RoomPage({ params }: { params: { roomId: string } }) {
     const checkRoomExists = async () => {
       try {
         // Get current user from session
-        const userResponse = await fetch('/api/auth/test');
+        const userResponse = await fetch('/api/auth/session');
         const userData = await userResponse.json();
         if (userData.username) {
           setCurrentUser(userData.username);
