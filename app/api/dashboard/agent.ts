@@ -32,5 +32,7 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: 'Invalid financial data format' }, { status: 500 });
     }
 
+    console.log('Successfully returned financial data for user:', session.username);
     return NextResponse.json({ financial_data: financialData });
 }
+

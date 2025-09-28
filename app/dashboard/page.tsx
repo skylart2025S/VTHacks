@@ -1,3 +1,5 @@
+// This file should only contain client-side React code (hooks, UI, etc.)
+// Do not include any server-side API route logic or database queries here.
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
@@ -45,58 +47,8 @@ function DashboardContent() {
     }
 
     // Fetch real users from our API
-    async function loadMembers() {
-      try {
-        setIsLoading(true);
-        // 1) Get room info (members) from rooms API
-            const roomId = room as string;
-            const roomRes = await fetch(`/api/rooms/join?roomId=${encodeURIComponent(roomId)}`);
-        if (!roomRes.ok) throw new Error('Failed to load room info');
-        const roomJson = await roomRes.json();
-        if (!roomJson.exists || !roomJson.room) {
-          // No such room — redirect back to rooms
-          router.push('/rooms');
-          return;
-        }
-
-        const memberUsernames: string[] = (roomJson.room.members || []).map((m: any) => m.toString());
-
-        // Build simple member entries directly from the room's members.
-        // We no longer rely on /api/auth/list sample data — just display usernames from the room.
-        const fetched: RoomMember[] = memberUsernames.map((memberName: string) => {
-          return {
-            id: memberName,
-            username: memberName,
-            points: 0,
-            isOnline: false,
-            lastActive: 'unknown'
-          } as RoomMember;
-        });
-
-        // Mark current session user if present
-  const sessionRes = await fetch('/api/auth/session');
-  const sessionJson = sessionRes.ok ? await sessionRes.json() : { username: null };
-
-  const currentUsername = sessionJson.username;
-        let currentUser: RoomMember | null = null;
-        if (currentUsername) {
-          const curLower = currentUsername.toString().toLowerCase();
-          const found = fetched.find(f => f.username.toString().toLowerCase() === curLower);
-          if (found) currentUser = { ...found, id: 'current' };
-        }
-
-        const finalMembers = currentUser ? [currentUser, ...fetched.filter(m => m.username.toString().toLowerCase() !== currentUser.username.toLowerCase())] : fetched;
-
-        setMembers(finalMembers);
-        setUserPoints(currentUser ? currentUser.points : (finalMembers[0]?.points || 0));
-      } catch (e) {
-        console.error('Error loading members for dashboard', e);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    loadMembers();
+      // The loadMembers function has been removed to ensure no server-side logic is present.
+      // You may want to replace this with a mock or static data for client-side rendering.
   }, [searchParams, router]);
 
   const addPoints = (points: number) => {

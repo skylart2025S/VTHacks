@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 // import ContributionSpectrum from "../../components/ContributionSpectrum";
 import FinancialAdvisor from "../../components/FinancialAdvisor";
@@ -289,11 +289,12 @@ const Cog = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export default function RoomPage({ params }: { params: { roomId: string } }) {
+export default function RoomPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const params = useParams();
   const isHost = searchParams.get('host') === 'true';
-  const [roomName, setRoomName] = useState(`Room ${params.roomId}`);
+  const [roomName, setRoomName] = useState(() => `Room ${params.roomId}`);
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
