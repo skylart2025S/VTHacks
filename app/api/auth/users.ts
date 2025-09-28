@@ -3,6 +3,7 @@
 // In production, replace this with actual database operations
 
 export interface User {
+  id: string;
   username: string;
   passwordHash: string;
 }

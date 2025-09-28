@@ -14,8 +14,37 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
+  
+  // Financial data relationship
+  financialData FinancialData?
+  
   @@map("users")
+}
+
+model FinancialData {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Plaid-specific data
+  plaidItemId     String?
+  plaidAccessToken String? // In production, encrypt this
+  
+  // Financial data (stored as JSON)
+  accountsData     Json?
+  transactionsData Json?
+  holdingsData     Json?
+  securitiesData   Json?
+  
+  // Metadata
+  lastUpdated      DateTime @default(now())
+  dataSource       String   @default("plaid_sandbox")
+  isActive         Boolean  @default(true)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("financial_data")
 }
 
 // Alternative API route using Prisma

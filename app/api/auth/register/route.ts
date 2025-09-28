@@ -43,18 +43,68 @@ export async function POST(request: NextRequest) {
     const passwordHash = await bcrypt.hash(password, 12);
 
     // Store the user (in production, save to database)
-    users.push({
+    const newUser = {
       username: username.toLowerCase(),
-      passwordHash
-    });
+      passwordHash,
+      id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` // Generate unique ID
+    };
+    users.push(newUser);
 
     // Set session
     setSession(username.toLowerCase());
 
-    return NextResponse.json(
-      { message: 'Account created successfully', username },
-      { status: 201 }
-    );
+    // Generate unique financial data for the new user
+    try {
+      console.log(`🔄 Generating financial data for new user: ${newUser.id}`);
+      
+      // Call the financial data generation endpoint
+      const financialDataResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/users/${newUser.id}/financial-data`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (financialDataResponse.ok) {
+        const financialData = await financialDataResponse.json();
+        console.log(`✅ Financial data generated for user ${newUser.id}`);
+        
+        return NextResponse.json(
+          { 
+            message: 'Account created successfully with financial data', 
+            username,
+            userId: newUser.id,
+            financialDataGenerated: true,
+            financialData: financialData.data
+          },
+          { status: 201 }
+        );
+      } else {
+        console.warn(`⚠️ Failed to generate financial data for user ${newUser.id}`);
+        
+        return NextResponse.json(
+          { 
+            message: 'Account created successfully (financial data generation failed)', 
+            username,
+            userId: newUser.id,
+            financialDataGenerated: false
+          },
+          { status: 201 }
+        );
+      }
+    } catch (financialError) {
+      console.error('Error generating financial data:', financialError);
+      
+      return NextResponse.json(
+        { 
+          message: 'Account created successfully (financial data generation failed)', 
+          username,
+          userId: newUser.id,
+          financialDataGenerated: false
+        },
+        { status: 201 }
+      );
+    }
 
   } catch (error) {
     console.error('Registration error:', error);
