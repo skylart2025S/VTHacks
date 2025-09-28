@@ -2,8 +2,6 @@
 
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-// import ContributionSpectrum from "../../components/ContributionSpectrum";
-import FinancialAdvisor from "../../components/FinancialAdvisor";
 
 // Custom CSS for Clash font
 const clashFontStyles = `
@@ -317,7 +315,6 @@ export default function RoomPage() {
   const [roomExists, setRoomExists] = useState<boolean | null>(null);
   const [roomData, setRoomData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState<string>('');
 
   // Members are loaded from the DB via the /api/rooms/members endpoint
 
@@ -339,6 +336,7 @@ export default function RoomPage() {
   useEffect(() => {
     const checkRoomExists = async () => {
       try {
+<<<<<<< HEAD
         // Get current user from session
         const userResponse = await fetch('/api/auth/session');
         const userData = await userResponse.json();
@@ -346,6 +344,8 @@ export default function RoomPage() {
           setCurrentUser(userData.username);
         }
 
+=======
+>>>>>>> parent of 5c11c201 (leaderboard)
         const response = await fetch(`/api/rooms/join?roomId=${params.roomId}`);
         const data = await response.json();
         
@@ -623,7 +623,42 @@ export default function RoomPage() {
       {/* Main Content */}
       <main className="relative z-10 px-6 md:px-12 py-8">
         <div className="max-w-7xl mx-auto">
+          {/* Room Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <Users className="w-8 h-8 text-purple-400" />
+                <span className="text-2xl font-bold text-purple-400">{roomStats.totalMembers}</span>
+              </div>
+              <div className="text-sm text-gray-400">Active Members</div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-green-900/20 to-blue-900/20 backdrop-blur-sm border border-green-500/20 rounded-2xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <TrendingUp className="w-8 h-8 text-green-400" />
+                <span className="text-2xl font-bold text-green-400">${roomStats.totalExpenses}</span>
+              </div>
+              <div className="text-sm text-gray-400">Total Expenses</div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <Target className="w-8 h-8 text-blue-400" />
+                <span className="text-2xl font-bold text-blue-400">{roomStats.averageEfficiency}%</span>
+              </div>
+              <div className="text-sm text-gray-400">Avg Efficiency</div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-yellow-900/20 to-orange-900/20 backdrop-blur-sm border border-yellow-500/20 rounded-2xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <Zap className="w-8 h-8 text-yellow-400" />
+                <span className="text-2xl font-bold text-yellow-400">${roomStats.weeklySavings}</span>
+              </div>
+              <div className="text-sm text-gray-400">Weekly Savings</div>
+            </div>
+          </div>
 
+<<<<<<< HEAD
           {/* Leaderboard and Quick Actions - Side by Side */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
                 {/* Leaderboard */}
@@ -673,38 +708,124 @@ export default function RoomPage() {
                       )}
                     </div>
                   </div>
+=======
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Leaderboard */}
+            <div className="lg:col-span-2">
+              <div className="bg-gradient-to-br from-slate-900/80 to-purple-900/50 backdrop-blur-sm border border-purple-500/30 rounded-3xl p-8">
+                <div className="flex items-center justify-between mb-8">
+                  <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Leaderboard
+                  </h2>
+                  <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <Clock className="w-4 h-4" />
+                    Updated 2 min ago
+                  </div>
                 </div>
 
-            {/* Right Sidebar */}
+                <div className="space-y-4">
+                  {leaderboard.map((player, index) => (
+                    <div
+                      key={index}
+                      className={`flex items-center justify-between p-4 rounded-xl transition-all duration-300 hover:scale-105 ${
+                        player.rank === 1
+                          ? "bg-gradient-to-r from-yellow-900/30 to-orange-900/30 border border-yellow-500/30"
+                          : player.rank === 2
+                          ? "bg-gradient-to-r from-gray-900/30 to-slate-900/30 border border-gray-500/30"
+                          : player.rank === 3
+                          ? "bg-gradient-to-r from-orange-900/30 to-red-900/30 border border-orange-500/30"
+                          : "bg-gradient-to-r from-slate-800/30 to-gray-800/30 border border-slate-600/30"
+                      }`}
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 font-bold text-white">
+                          {player.rank === 1 ? <Trophy className="w-6 h-6" /> : player.rank}
+                        </div>
+                        <div>
+                          <div className="font-semibold">{player.name}</div>
+                          <div className="text-sm text-gray-400">{player.efficiency}% efficiency</div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xl font-bold text-purple-400">{player.score}</div>
+                        <div className="text-sm text-gray-400">points</div>
+                      </div>
+                    </div>
+                  ))}
+>>>>>>> parent of 5c11c201 (leaderboard)
+                </div>
+              </div>
+            </div>
+
+            {/* Sidebar */}
             <div className="space-y-6">
-              {/* XP and Weekly Savings - Side by Side */}
-              <div className="grid grid-cols-2 gap-3">
-                {/* User XP */}
-                <div className="bg-gradient-to-br from-slate-900/80 to-purple-900/50 backdrop-blur-sm border border-purple-500/30 rounded-2xl p-3">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                      <Star className="w-3 h-3 text-white" />
+              {/* Room Members */}
+              <div className="bg-gradient-to-br from-slate-900/80 to-blue-900/50 backdrop-blur-sm border border-blue-500/30 rounded-3xl p-6">
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <Users className="w-5 h-5 text-blue-400" />
+                  Room Members
+                </h3>
+                <div className="space-y-3">
+                  {leaderboard.map((member, index) => (
+                    <div key={index} className="flex items-center space-x-3">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-xs font-bold">
+                        {member.avatar}
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-sm font-medium">{member.name}</div>
+                        <div className="text-xs text-gray-400">{member.efficiency}% efficiency</div>
+                      </div>
+                      <div className="text-sm font-bold text-blue-400">{member.score}</div>
                     </div>
-                    <h3 className="text-sm font-bold text-white">Your XP</h3>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">2,450</div>
-                    <div className="text-xs text-gray-400 mt-1">Experience Points</div>
-                  </div>
+                  ))}
                 </div>
+              </div>
 
-                {/* Weekly Savings */}
-                <div className="bg-gradient-to-br from-slate-900/80 to-green-900/50 backdrop-blur-sm border border-green-500/30 rounded-2xl p-3">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-6 h-6 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
-                      <TrendingUp className="w-3 h-3 text-white" />
+              {/* Recent Activity */}
+              <div className="bg-gradient-to-br from-slate-900/80 to-green-900/50 backdrop-blur-sm border border-green-500/30 rounded-3xl p-6">
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <Clock className="w-5 h-5 text-green-400" />
+                  Recent Activity
+                </h3>
+                <div className="space-y-3">
+                  {recentActivities.map((activity, index) => (
+                    <div key={index} className="flex items-start space-x-3">
+                      <div className={`w-2 h-2 rounded-full mt-2 ${
+                        activity.type === 'expense' ? 'bg-red-400' :
+                        activity.type === 'payment' ? 'bg-green-400' :
+                        'bg-yellow-400'
+                      }`}></div>
+                      <div className="flex-1">
+                        <div className="text-sm font-medium">{activity.user}</div>
+                        <div className="text-xs text-gray-400">{activity.description}</div>
+                        <div className="text-xs text-gray-500">{activity.time}</div>
+                      </div>
+                      {activity.amount > 0 && (
+                        <div className="text-sm font-bold text-green-400">${activity.amount}</div>
+                      )}
                     </div>
-                    <h3 className="text-sm font-bold text-white">Weekly Savings</h3>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">$320</div>
-                    <div className="text-xs text-gray-400 mt-1">This Week</div>
-                  </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Upcoming Events */}
+              <div className="bg-gradient-to-br from-slate-900/80 to-orange-900/50 backdrop-blur-sm border border-orange-500/30 rounded-3xl p-6">
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <Calendar className="w-5 h-5 text-orange-400" />
+                  Upcoming Events
+                </h3>
+                <div className="space-y-3">
+                  {upcomingEvents.map((event, index) => (
+                    <div key={index} className="flex items-center space-x-3 p-3 bg-slate-800/50 rounded-lg">
+                      <div className="text-center">
+                        <div className="text-xs text-orange-400 font-bold">{event.date}</div>
+                        <div className="text-xs text-gray-400">{event.time}</div>
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-sm font-medium">{event.event}</div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -727,15 +848,6 @@ export default function RoomPage() {
                     <Target className="w-4 h-4" />
                     Set Goals
                   </button>
-                </div>
-              </div>
-
-              {/* Financial Advisor */}
-              <div className="bg-gradient-to-br from-slate-900/80 to-emerald-900/50 backdrop-blur-sm border border-emerald-500/30 rounded-2xl p-6">
-                <div className="text-center text-gray-400">
-                  <Brain className="w-16 h-16 mx-auto mb-6 opacity-50" />
-                  <h3 className="text-2xl font-bold text-white mb-4">Financial Advisor</h3>
-                  <p className="text-lg">Coming Soon</p>
                 </div>
               </div>
             </div>

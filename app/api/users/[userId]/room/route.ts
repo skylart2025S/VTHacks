@@ -5,10 +5,11 @@ import { getCurrentUsername } from '../../../../lib/session';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) {
   try {
-    const { userId } = params;
+    // Await the params Promise to get the actual parameters
+    const { userId } = await context.params;
     
     // Get current username from session for verification
     const currentUsername = getCurrentUsername();
