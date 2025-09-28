@@ -50,24 +50,12 @@ export async function POST(request: NextRequest) {
     // Hash the password
     const passwordHash = await bcrypt.hash(password, 12);
 
-    // Read minimal_financial_data.json
-    let minimalFinancialData = {};
-    try {
-      const fs = require('fs');
-      const path = require('path');
-      const dataPath = path.join(process.cwd(), 'api', 'minimal_financial_data.json');
-      const fileContent = fs.readFileSync(dataPath, 'utf-8');
-      minimalFinancialData = JSON.parse(fileContent);
-    } catch (jsonErr) {
-      console.error('Error reading minimal_financial_data.json:', jsonErr);
-    }
-
     // Store the user (in production, save to database)
     const newUser = {
       username: username.toLowerCase(),
       password: passwordHash,
       roomId: trimmedRoomId || '',
-      financial_data: minimalFinancialData,
+      financial_data: {}, // Start with empty financial data - will be populated with unique data
       id: `user_${Date.now()}_${Math.random().toString(36).slice(2, 11)}` // Generate unique ID
     };
     await usersCollection.insertOne(newUser);
@@ -133,6 +121,12 @@ export async function POST(request: NextRequest) {
       if (financialDataResponse.ok) {
         const financialData = await financialDataResponse.json();
         console.log(`✅ Financial data generated for user ${newUser.id}`);
+        
+        // Update the user's financial_data in the database with the unique data
+        await usersCollection.updateOne(
+          { id: newUser.id },
+          { $set: { financial_data: financialData.data } }
+        );
         
         return NextResponse.json(
           { 

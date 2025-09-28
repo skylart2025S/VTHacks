@@ -11,6 +11,59 @@ import random
 from datetime import datetime, timedelta
 from plaid_client import PlaidClient
 
+def transform_to_minimal_format(raw_data):
+    """Transform raw Plaid data to the minimal format expected by the API"""
+    
+    # Calculate total current balance from all accounts
+    total_balance = 0
+    for account in raw_data.get('accounts', []):
+        balance = account.get('balances', {}).get('current', 0)
+        # For credit cards, balance represents debt (negative)
+        if account.get('type') == 'credit':
+            total_balance -= balance
+        else:
+            total_balance += balance
+    
+    # Extract minimal transaction data (vendor and cash flow)
+    transactions = []
+    for transaction in raw_data.get('transactions', []):
+        merchant = transaction.get('merchant_name') or transaction.get('name', 'Unknown')
+        amount = transaction.get('amount', 0)
+        
+        # Determine cash flow: positive for income, negative for expenses
+        cash_flow = -amount  # Flip the sign to make expenses negative
+        
+        transactions.append({
+            "vendor": merchant,
+            "cash_flow": cash_flow
+        })
+    
+    # Extract minimal investment data
+    investments = []
+    securities = raw_data.get('securities', [])
+    for holding in raw_data.get('holdings', []):
+        security_id = holding.get('security_id')
+        security = next((s for s in securities if s.get('security_id') == security_id), {})
+        
+        symbol = security.get('ticker_symbol', 'N/A')
+        current_value = holding.get('institution_value', 0)
+        quantity = holding.get('quantity', 0)
+        
+        # Only include investments with actual value and valid symbol
+        if symbol != 'N/A' and current_value > 0:
+            investments.append({
+                "symbol": symbol,
+                "quantity": quantity,
+                "current_value": current_value
+            })
+    
+    return {
+        "current_balance": total_balance,
+        "transactions": transactions,
+        "investments": investments,
+        "metadata": raw_data.get('metadata', {})
+    }
+
 def generate_mock_financial_data(user_id: str, output_file: str):
     """Generate mock financial data when Plaid credentials are not available"""
     
@@ -116,9 +169,12 @@ def generate_mock_financial_data(user_id: str, output_file: str):
         }
     }
     
+    # Transform to minimal format
+    transformed_data = transform_to_minimal_format(financial_data)
+    
     # Save to file
     with open(output_file, 'w') as f:
-        json.dump(financial_data, f, indent=2, default=str)
+        json.dump(transformed_data, f, indent=2, default=str)
     
     print(f"[SUCCESS] Mock financial data generated and saved to: {output_file}")
     print(f"   Accounts: {len(accounts)}")
@@ -181,9 +237,12 @@ def generate_user_financial_data(user_id: str, output_file: str):
                 variation = random.uniform(0.99, 1.01)
                 holding['institution_price'] = round(holding['institution_price'] * variation, 2)
         
+        # Transform data to the expected format
+        transformed_data = transform_to_minimal_format(financial_data)
+        
         # Save to file
         with open(output_file, 'w') as f:
-            json.dump(financial_data, f, indent=2, default=str)
+            json.dump(transformed_data, f, indent=2, default=str)
         
         print(f"[SUCCESS] Financial data generated and saved to: {output_file}")
         print(f"   Accounts: {len(financial_data.get('accounts', []))}")
