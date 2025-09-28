@@ -1,22 +1,22 @@
-# RoomieLoot - Budget Battle Royale 🏠💰
+# RoomieLoot - Budget Battle Royale 💰🏆
 
-> **Split your finances, not your friendships**
+> **Turn budgeting into epic battles. Compete with friends, master your spending, and climb the leaderboard with AI-powered insights.**
 
-RoomieLoot is a gamified financial management platform designed for roommates to track shared expenses, compete in budget challenges, and make smart financial decisions together. Turn budgeting into epic battles where you compete with friends, master your spending, and climb the leaderboard with AI-powered insights.
+RoomieLoot is a gamified financial management platform that transforms personal finance into an engaging, competitive experience. Connect your bank accounts, track your financial health, compete with friends on leaderboards, and receive AI-powered financial advice to level up your money management skills.
 
 ## 🎯 Project Overview
 
-RoomieLoot combines financial data integration with social gaming elements to make budgeting fun and collaborative. The platform integrates with Plaid's API to fetch real financial data, provides AI-powered financial advice, and creates a competitive environment where roommates can track shared expenses and contribute to group wishlists.
+RoomieLoot combines real financial data integration with gaming mechanics to make budgeting fun and motivating. The platform integrates with Plaid's API to fetch your actual bank account and transaction data, calculates your financial wellness score, and creates competitive leaderboards where you can challenge friends to improve their financial habits.
 
 ### Key Features
 
-- **🏦 Financial Data Integration**: Real-time bank account and transaction data via Plaid API
-- **🏠 Room Management**: Create and join rooms with roommates
-- **📊 Contribution Tracking**: Track who contributes what to shared expenses
-- **🎁 Shared Wishlist**: Collaborative wishlist with contribution progress
-- **🤖 AI Financial Advisor**: Personalized financial advice and recommendations
-- **🏆 Gamification**: Leaderboards, scores, and achievements
-- **📱 Modern UI**: Beautiful, responsive interface built with Next.js and Tailwind CSS
+- **🏦 Real Financial Data**: Connect your bank accounts via Plaid API for live transaction and balance data
+- **📊 Financial Wellness Scoring**: AI-powered scoring system that evaluates your financial health (0-100)
+- **🏆 Competitive Leaderboards**: Compete with friends on financial efficiency and savings goals
+- **🤖 AI Financial Advisor**: Personalized financial recommendations and advice
+- **🎮 Gamification Elements**: Achievements, badges, and progress tracking
+- **📱 Modern Dashboard**: Beautiful, responsive interface with real-time financial insights
+- **🔒 Secure Authentication**: Safe user accounts with encrypted financial data
 
 ## 🛠 Technology Stack
 
@@ -36,8 +36,8 @@ RoomieLoot combines financial data integration with social gaming elements to ma
 
 ### Financial Integration
 - **Plaid API** - Bank account and transaction data
-- **Python Scripts** - Financial data processing
-- **Custom AI Agent** - Financial advice generation
+- **Python Scripts** - Financial data processing and analysis
+- **Custom AI Agent** - Financial advice generation and scoring
 
 ### Authentication
 - **Custom Session Management** - User authentication
@@ -53,20 +53,21 @@ RoomieLoot/
 │   │   │   ├── register/         # User registration
 │   │   │   ├── signin/           # User login
 │   │   │   └── session/          # Session management
-│   │   ├── rooms/                # Room management
-│   │   │   ├── create/           # Create new rooms
-│   │   │   ├── join/             # Join existing rooms
-│   │   │   ├── wishlist/         # Shared wishlist management
-│   │   │   └── contributions/    # Contribution tracking
+│   │   ├── rooms/                # Room/group management
+│   │   │   ├── create/           # Create new groups
+│   │   │   ├── join/             # Join existing groups
+│   │   │   └── wishlist/         # Group wishlist (optional feature)
 │   │   └── users/                # User data endpoints
+│   │       └── [userId]/
+│   │           └── financial-data/ # Financial data retrieval
 │   ├── components/               # React components
 │   │   ├── FinancialAdvisor.tsx  # AI financial advice
-│   │   ├── RoomWishlistAndSpectrum.tsx # Room features
+│   │   ├── RoomWishlistAndSpectrum.tsx # Group features
 │   │   ├── Wishlist.tsx          # Wishlist management
-│   │   └── ContributionSpectrum.tsx # Contribution tracking
-│   ├── dashboard/                # User dashboard
-│   ├── room/[roomId]/            # Individual room pages
-│   ├── rooms/                    # Room selection
+│   │   └── ContributionSpectrum.tsx # Group contribution tracking
+│   ├── dashboard/                # Personal financial dashboard
+│   ├── room/[roomId]/            # Group/room pages with leaderboards
+│   ├── rooms/                    # Group selection
 │   └── page.tsx                  # Landing page
 ├── api/                          # Python financial integration
 │   ├── plaid_client.py           # Plaid API client
@@ -75,7 +76,7 @@ RoomieLoot/
 │   └── requirements.txt          # Python dependencies
 ├── agent/                        # AI financial advisor
 │   ├── main.py                   # Main agent logic
-│   ├── calculate_score.py        # Scoring algorithms
+│   ├── calculate_score.py        # Financial wellness scoring
 │   └── tools.py                  # Agent tools
 ├── prisma/                       # Database schema
 │   └── schema.prisma             # Prisma schema definition
@@ -147,7 +148,7 @@ RoomieLoot/
 ### Authentication Endpoints
 
 #### POST `/api/auth/register`
-Register a new user account.
+Register a new user account with automatic financial data generation.
 
 **Request Body:**
 ```json
@@ -177,10 +178,10 @@ Sign in to an existing account.
 }
 ```
 
-### Room Management Endpoints
+### Group Management Endpoints
 
 #### POST `/api/rooms/create`
-Create a new room.
+Create a new group for financial competition.
 
 **Request Body:**
 ```json
@@ -190,7 +191,7 @@ Create a new room.
 ```
 
 #### POST `/api/rooms/join`
-Join an existing room.
+Join an existing group.
 
 **Request Body:**
 ```json
@@ -199,31 +200,10 @@ Join an existing room.
 }
 ```
 
-#### GET `/api/rooms/wishlist`
-Get wishlist items for a room.
-
-**Query Parameters:**
-- `roomId`: Room identifier
-
-#### POST `/api/rooms/wishlist`
-Add a new wishlist item.
-
-**Request Body:**
-```json
-{
-  "roomId": "string",
-  "itemName": "string",
-  "description": "string",
-  "estimatedCost": number,
-  "priority": "low" | "medium" | "high",
-  "category": "string"
-}
-```
-
 ### Financial Data Endpoints
 
 #### GET `/api/users/[userId]/financial-data`
-Get user's financial data.
+Get user's financial data including accounts, transactions, and holdings.
 
 **Response:**
 ```json
@@ -237,56 +217,64 @@ Get user's financial data.
 
 ## 🎮 Features Overview
 
-### 1. User Authentication & Registration
-- Secure user registration and login
-- Automatic financial data generation for new users
-- Session management
+### 1. Financial Wellness Scoring System
+- **Comprehensive Scoring**: 0-100 financial wellness score based on multiple factors
+- **Balance Analysis**: Rewards healthy account balances and emergency funds
+- **Investment Tracking**: Scores based on investment portfolio diversity and value
+- **Credit Utilization**: Monitors credit card usage and debt management
+- **Spending Patterns**: Analyzes cash flow and spending habits
+- **Account Diversity**: Rewards having multiple account types
 
-### 2. Room Management
-- Create rooms with custom names
-- Join rooms via room ID
-- Member management and tracking
-- Room statistics and analytics
+### 2. Competitive Leaderboards
+- **Real-time Rankings**: Live leaderboard updates based on financial scores
+- **Efficiency Metrics**: Tracks financial efficiency percentages
+- **Group Competitions**: Compete with friends in private groups
+- **Achievement System**: Unlock badges for financial milestones
+- **Progress Tracking**: Visual progress indicators and trend analysis
 
-### 3. Financial Data Integration
-- Real-time bank account data via Plaid
-- Transaction categorization and analysis
-- Investment holdings tracking
-- Financial health scoring
+### 3. AI Financial Advisor
+- **Personalized Recommendations**: AI-generated advice based on your financial data
+- **Category-Based Tips**: Advice across saving, budgeting, investment, and debt
+- **Priority System**: High, medium, and low priority recommendations
+- **Interactive Chat**: Chat interface for financial questions
+- **Smart Insights**: Automated analysis of spending patterns and opportunities
 
-### 4. Shared Wishlist System
-- Collaborative wishlist creation
-- Priority-based item organization
-- Contribution tracking and progress bars
-- Category-based organization
+### 4. Real Financial Data Integration
+- **Plaid API Integration**: Connect real bank accounts securely
+- **Transaction Categorization**: Automatic categorization of expenses
+- **Balance Monitoring**: Real-time account balance tracking
+- **Investment Holdings**: Track investment portfolios and performance
+- **Data Security**: Encrypted storage and secure API connections
 
-### 5. Contribution Spectrum
-- Visual representation of member contributions
-- Ranking system with leaderboards
-- Fairness tracking and analysis
-- Contribution history
+### 5. Gamification Elements
+- **Financial Score**: Personal financial wellness score (0-100)
+- **Achievement Badges**: Unlock badges for financial milestones
+- **Progress Bars**: Visual progress tracking for financial goals
+- **Streak Tracking**: Maintain financial habits with streak counters
+- **Level System**: Level up based on financial improvements
 
-### 6. AI Financial Advisor
-- Personalized financial recommendations
-- Category-based advice (saving, budgeting, investment, debt)
-- Priority-based tip system
-- Interactive chat interface
-
-### 7. Gamification Elements
-- User scoring system
-- Achievement badges
-- Leaderboards and rankings
-- Progress tracking
+### 6. Group Features (Optional)
+- **Group Creation**: Create private groups for friends
+- **Shared Wishlists**: Collaborative wishlist for group purchases
+- **Group Statistics**: Aggregate financial statistics for groups
+- **Social Features**: Share achievements and compete with friends
 
 ## 🤖 AI Financial Agent
 
-The project includes a Python-based AI agent that provides personalized financial advice:
+The project includes a sophisticated Python-based AI agent that provides personalized financial advice:
 
-### Features
-- **Financial Data Analysis**: Processes user transaction and account data
-- **Personalized Recommendations**: Generates 3 key recommendations per user
-- **Scoring System**: Calculates financial health scores
-- **Category-Based Advice**: Provides advice across different financial categories
+### Scoring Algorithm Features
+- **Balance Analysis**: Evaluates account balances and emergency fund adequacy
+- **Investment Assessment**: Analyzes investment portfolio diversity and performance
+- **Debt Management**: Monitors credit utilization and debt-to-income ratios
+- **Spending Analysis**: Tracks cash flow patterns and spending habits
+- **Account Diversity**: Rewards having multiple account types for financial stability
+
+### AI Recommendations
+- **Personalized Advice**: Generates 3 key recommendations per user
+- **Category-Based Tips**: Covers saving, budgeting, investment, and debt management
+- **Priority Scoring**: Ranks recommendations by importance and impact
+- **Contextual Insights**: Provides advice based on current financial situation
 
 ### Usage
 ```bash
@@ -341,6 +329,39 @@ python main.py
 - `holdingsData`: JSON investment data
 - `lastUpdated`: Last sync timestamp
 
+## 🏆 Scoring System Details
+
+### Financial Wellness Score Components (0-100)
+
+1. **Account Balance (0-20 points)**
+   - Emergency fund adequacy
+   - Liquid account balances
+   - Savings account health
+
+2. **Investment Portfolio (0-20 points)**
+   - Investment value relative to income
+   - Portfolio diversity
+   - Long-term wealth building
+
+3. **Credit Utilization (0-10 points)**
+   - Credit card usage percentage
+   - Debt management
+   - Credit health indicators
+
+4. **Spending Habits (0-10 points)**
+   - Cash flow analysis
+   - Expense categorization
+   - Budget adherence
+
+5. **Account Diversity (0-10 points)**
+   - Multiple account types
+   - Financial product utilization
+   - Banking relationship strength
+
+6. **Base Score (30 points)**
+   - Starting score for all users
+   - Ensures minimum baseline
+
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -362,15 +383,17 @@ For support and questions:
 
 ## 🔮 Future Enhancements
 
-- Real-time notifications
+- Real-time financial notifications
 - Mobile app development
 - Advanced analytics dashboard
 - Integration with more financial institutions
-- Enhanced AI recommendations
-- Social features and challenges
-- Expense splitting automation
-- Budget goal tracking
+- Enhanced AI recommendations with machine learning
+- Social challenges and competitions
+- Automated budget goal tracking
+- Investment portfolio optimization
+- Credit score monitoring
+- Bill payment reminders and automation
 
 ---
 
-**Built with ❤️ for VTHacks**
+**Built with ❤️ for VTHacks - Making Finance Fun!**
