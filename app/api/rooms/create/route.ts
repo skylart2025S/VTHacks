@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
 
     // Persist to MongoDB rooms database (best-effort)
     try {
-      const roomsCollection = await getCollectionForDB('rooms_database', 'rooms');
+      const roomsCollection = await getCollectionForDB('user_database', 'rooms');
       if (roomsCollection) {
         await roomsCollection.insertOne(newRoom);
       } else {
