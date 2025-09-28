@@ -67,6 +67,21 @@ export async function POST(request: NextRequest) {
       console.error('Failed to persist room membership to MongoDB:', dbErr);
     }
 
+    // Update user's roomId in the users collection
+    try {
+      const usersCollection = await getCollectionForDB('user_database', 'users');
+      if (usersCollection) {
+        await usersCollection.updateOne(
+          { username: normalizedUsername },
+          { $set: { roomId: room.id } }
+        );
+      } else {
+        console.warn('Users DB unavailable: skipping user roomId update');
+      }
+    } catch (userErr) {
+      console.error('Failed to update user with roomId:', userErr);
+    }
+
     return NextResponse.json(
       { 
         message: 'Successfully joined room', 

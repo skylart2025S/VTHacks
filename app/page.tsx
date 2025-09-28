@@ -50,8 +50,11 @@ export default function LandingPage() {
           setTimeout(() => {
             router.push("/rooms");
           }, 2000);
+        } else if (isSignIn && data.room) {
+          // User is signing in and already has a room - redirect directly to the room
+          router.push(`/room/${data.room.id}`);
         } else {
-          // Success - redirect to rooms
+          // Success - redirect to rooms (for new users or users without rooms)
           router.push("/rooms");
         }
       } else {
