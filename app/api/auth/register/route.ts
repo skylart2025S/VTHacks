@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     const newUser = {
       username: username.toLowerCase(),
       password: passwordHash,
-      roomId: trimmedRoomId || '',
+      roomId: '',
       financial_data: {}, // Start with empty financial data - will be populated with unique data
       id: `user_${Date.now()}_${Math.random().toString(36).slice(2, 11)}` // Generate unique ID
     };
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
       if (trimmedRoomId) {
         try {
           // Prefer the dedicated rooms database for room membership persistence
-          const roomsCollection = await getCollectionForDB('rooms_database', 'rooms');
+          const roomsCollection = await getCollectionForDB('user_database', 'rooms');
           const normalizedUsername = newUser.username.toLowerCase();
 
           if (roomsCollection) {
