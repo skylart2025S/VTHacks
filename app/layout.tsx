@@ -26,7 +26,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
+        style={{ fontFamily: "'Clash Royale', var(--font-geist-sans), Arial, Helvetica, sans-serif" }}
       >
         {children}
       </body>
