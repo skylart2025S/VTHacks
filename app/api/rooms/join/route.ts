@@ -100,17 +100,43 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ exists: false }, { status: 400 });
   }
 
-  const exists = roomExists(roomId);
-  const room = exists ? getRoomById(roomId) : null;
+  // First check in-memory store
+  let exists = roomExists(roomId);
+  let room = exists ? getRoomById(roomId) : null;
 
-  return NextResponse.json({ 
+  // If not found in-memory, try DB (useful after server restarts where in-memory state is lost)
+  if (!room) {
+    try {
+      const roomsCollection = await getCollectionForDB('rooms_database', 'rooms');
+      if (roomsCollection) {
+        const doc = await roomsCollection.findOne({ id: roomId });
+        if (doc) {
+          exists = true;
+          room = {
+            id: doc.id,
+            name: doc.name,
+            createdAt: doc.createdAt ? new Date(doc.createdAt) : new Date(),
+            createdBy: doc.createdBy,
+            members: Array.isArray(doc.members) ? doc.members : [],
+          } as any;
+        }
+      }
+    } catch (dbErr) {
+      console.error('Error reading room from DB:', dbErr);
+    }
+  }
+
+  return NextResponse.json({
     exists,
-    room: room ? {
-      id: room.id,
-      name: room.name,
-      createdAt: room.createdAt,
-      createdBy: room.createdBy,
-      memberCount: room.members.length
-    } : null
+    room: room
+      ? {
+          id: room.id,
+          name: room.name,
+          createdAt: room.createdAt,
+          createdBy: room.createdBy,
+          memberCount: room.members.length,
+          members: room.members,
+        }
+      : null,
   });
 }

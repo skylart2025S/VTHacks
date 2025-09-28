@@ -60,6 +60,29 @@ export async function POST(request: NextRequest) {
       console.error('Failed to persist room to MongoDB:', dbErr);
     }
 
+    // Also update the creating user's document in the users collection to set their roomId
+    try {
+      const usersCollection = await getCollectionForDB('user_database', 'users');
+      if (usersCollection) {
+        await usersCollection.updateOne(
+          { username: createdBy.toLowerCase() },
+          { $set: { roomId: roomId } }
+        );
+      } else {
+        // fallback to default DB helper if available
+        // (getCollection uses 'user_database' by default)
+        const { getCollection } = require('../../../db');
+        const fallbackUsers = await getCollection('users');
+        if (fallbackUsers) {
+          await fallbackUsers.updateOne({ username: createdBy.toLowerCase() }, { $set: { roomId: roomId } });
+        } else {
+          console.warn('Users DB unavailable: skipping user roomId update');
+        }
+      }
+    } catch (userErr) {
+      console.error('Failed to update user with roomId:', userErr);
+    }
+
     return NextResponse.json(
       { 
         message: 'Room created successfully', 

@@ -34,68 +34,58 @@ function DashboardContent() {
     setRoomCode(room);
     setUserRole(role || "member");
 
+    // simple hash helper (same approach used elsewhere)
+    function hashStringToNumber(s: string) {
+      let h = 0;
+      for (let i = 0; i < s.length; i++) {
+        h = (h << 5) - h + s.charCodeAt(i);
+        h |= 0;
+      }
+      return Math.abs(h);
+    }
+
     // Fetch real users from our API
     async function loadMembers() {
       try {
         setIsLoading(true);
+        // 1) Get room info (members) from rooms API
+            const roomId = room as string;
+            const roomRes = await fetch(`/api/rooms/join?roomId=${encodeURIComponent(roomId)}`);
+        if (!roomRes.ok) throw new Error('Failed to load room info');
+        const roomJson = await roomRes.json();
+        if (!roomJson.exists || !roomJson.room) {
+          // No such room — redirect back to rooms
+          router.push('/rooms');
+          return;
+        }
 
-        const [usersRes, sessionRes] = await Promise.all([
-          fetch('/api/auth/list'),
-          fetch('/api/auth/session')
-        ]);
+        const memberUsernames: string[] = (roomJson.room.members || []).map((m: any) => m.toString());
 
-        if (!usersRes.ok) throw new Error('Failed to load users');
-
-        const usersJson = await usersRes.json();
-        const sessionJson = sessionRes.ok ? await sessionRes.json() : { username: null };
-
-        let fetched: RoomMember[] = (usersJson.users || []).map((u: any) => {
-          // Use DB username when present; fall back to id
-          const username = (u.username || u.id || u._id?.toString() || 'User').toString();
-
-          // Generate randomized display values so the leaderboard looks lively
-          const points = Math.floor(Math.random() * 3000) + 200; // 200..3199
-          const isOnline = Math.random() < 0.6; // ~60% chance online
-          const lastActive = isOnline ? 'now' : `${Math.floor(Math.random() * 59) + 1} min ago`;
-
+        // Build simple member entries directly from the room's members.
+        // We no longer rely on /api/auth/list sample data — just display usernames from the room.
+        const fetched: RoomMember[] = memberUsernames.map((memberName: string) => {
           return {
-            id: u.id || u._id?.toString() || username,
-            username,
-            points,
-            isOnline,
-            lastActive
+            id: memberName,
+            username: memberName,
+            points: 0,
+            isOnline: false,
+            lastActive: 'unknown'
           } as RoomMember;
         });
 
-        // If the DB returned no users, generate a handful of random users locally
-        if (!fetched.length) {
-          const sampleNames = [
-            'Alex Chen','Sarah Kim','Mike Johnson','Emma Davis','Jordan Lee','Taylor Nguyen',
-            'Chris Park','Ava Martinez','Noah Brown','Liam Wilson','Olivia Garcia','Sophia Patel'
-          ];
+        // Mark current session user if present
+  const sessionRes = await fetch('/api/auth/session');
+  const sessionJson = sessionRes.ok ? await sessionRes.json() : { username: null };
 
-          fetched = Array.from({ length: 6 }).map((_, i) => {
-            const username = sampleNames[i % sampleNames.length] + (Math.random() < 0.4 ? ` ${Math.floor(Math.random()*90)+10}` : '');
-            const points = Math.floor(Math.random() * 3000) + 200;
-            const isOnline = Math.random() < 0.6;
-            const lastActive = isOnline ? 'now' : `${Math.floor(Math.random() * 59) + 1} min ago`;
-            return { id: `local_${i}_${Date.now()}`, username, points, isOnline, lastActive } as RoomMember;
-          });
-        }
-
-        // If current session exists, mark it as current and place at top
-        const currentUsername = sessionJson.username;
-
+  const currentUsername = sessionJson.username;
         let currentUser: RoomMember | null = null;
         if (currentUsername) {
-          const currentLower = currentUsername.toString().toLowerCase();
-          const found = fetched.find(f => f.username.toString().toLowerCase() === currentLower);
-          if (found) {
-            currentUser = { ...found, id: 'current' };
-          }
+          const curLower = currentUsername.toString().toLowerCase();
+          const found = fetched.find(f => f.username.toString().toLowerCase() === curLower);
+          if (found) currentUser = { ...found, id: 'current' };
         }
 
-        const finalMembers = currentUser ? [currentUser, ...fetched.filter(m => m.id !== currentUser?.id && m.username !== currentUser.username)] : fetched;
+        const finalMembers = currentUser ? [currentUser, ...fetched.filter(m => m.username.toString().toLowerCase() !== currentUser.username.toLowerCase())] : fetched;
 
         setMembers(finalMembers);
         setUserPoints(currentUser ? currentUser.points : (finalMembers[0]?.points || 0));

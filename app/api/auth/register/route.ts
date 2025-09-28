@@ -6,6 +6,7 @@ import { setSession } from '@/lib/session';
 export async function POST(request: NextRequest) {
   try {
   const { username, password, roomId } = await request.json();
+  const trimmedRoomId = typeof roomId === 'string' ? roomId.trim() : '';
 
     // Validate input
     if (!username || !password) {
@@ -65,31 +66,52 @@ export async function POST(request: NextRequest) {
     const newUser = {
       username: username.toLowerCase(),
       password: passwordHash,
-      roomId: '',
+      roomId: trimmedRoomId || '',
       financial_data: minimalFinancialData,
       id: `user_${Date.now()}_${Math.random().toString(36).slice(2, 11)}` // Generate unique ID
     };
     await usersCollection.insertOne(newUser);
 
       // If the client requested a room to be created/added, store it in the rooms DB
-      if (roomId) {
+      if (trimmedRoomId) {
         try {
-          const roomsCollection = await getCollectionForDB('user_database', 'rooms');
+          // Prefer the dedicated rooms database for room membership persistence
+          const roomsCollection = await getCollectionForDB('rooms_database', 'rooms');
+          const normalizedUsername = newUser.username.toLowerCase();
+
           if (roomsCollection) {
-            const roomDoc = {
-              id: roomId,
-              createdAt: new Date(),
-              creator: newUser.username,
-              members: [newUser.id]
-            };
-            await roomsCollection.insertOne(roomDoc);
-            // attach roomId to user document (optional)
-            await usersCollection.updateOne({ id: newUser.id }, { $set: { roomId } });
+            // Try to add the user to an existing room's members array
+            const updateResult = await roomsCollection.updateOne(
+              { id: roomId },
+              { $addToSet: { members: normalizedUsername } }
+            );
+
+            // If the room did not exist in DB, create it (best-effort)
+            if (updateResult.matchedCount === 0) {
+              const roomDoc = {
+                id: trimmedRoomId,
+                createdAt: new Date(),
+                creator: newUser.username,
+                members: [normalizedUsername]
+              };
+              await roomsCollection.insertOne(roomDoc);
+            }
+
+            // attach roomId to user document
+            await usersCollection.updateOne({ id: newUser.id }, { $set: { roomId: trimmedRoomId } });
           } else {
-            console.warn('Rooms DB connection not available; skipping room insert');
+            console.warn('Rooms DB connection not available; skipping room membership update');
+            // still attach roomId to user document locally
+            await usersCollection.updateOne({ id: newUser.id }, { $set: { roomId: trimmedRoomId } });
           }
         } catch (roomErr) {
-          console.error('Error inserting room:', roomErr);
+          console.error('Error updating room membership:', roomErr);
+          // attempt to still attach roomId to user document
+          try {
+            await usersCollection.updateOne({ id: newUser.id }, { $set: { roomId: trimmedRoomId } });
+          } catch (attachErr) {
+            console.error('Failed to set roomId on user after room update error:', attachErr);
+          }
         }
       }
 
