@@ -294,6 +294,15 @@ export default function RoomPage({ params }: { params: { roomId: string } }) {
   const searchParams = useSearchParams();
   const isHost = searchParams.get('host') === 'true';
   const [roomName, setRoomName] = useState(`Room ${params.roomId}`);
+  interface RoomMember {
+    id: string;
+    username: string;
+    points: number;
+    avatar?: string;
+    isOnline: boolean;
+    lastActive: string;
+  }
+  const [members, setMembers] = useState<RoomMember[]>([]);
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -304,42 +313,21 @@ export default function RoomPage({ params }: { params: { roomId: string } }) {
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<string>('');
 
-  // Mock data for demonstration
-  const leaderboard = [
-    { name: "Alex Chen", score: 2450, avatar: "AC", rank: 1, efficiency: 94 },
-    { name: "Sarah Kim", score: 2380, avatar: "SK", rank: 2, efficiency: 91 },
-    { name: "Mike Johnson", score: 2150, avatar: "MJ", rank: 3, efficiency: 87 },
-    { name: "Emma Davis", score: 1980, avatar: "ED", rank: 4, efficiency: 82 },
-    { name: "You", score: 1850, avatar: "YO", rank: 5, efficiency: 78 },
-  ];
+  // Members are loaded from the DB via the /api/rooms/members endpoint
 
   const roomStats = {
-    totalMembers: 5,
+    // keep defaults but we show the real count from `members.length` where appropriate
+    totalMembers: 0,
     totalExpenses: 12450,
     averageEfficiency: 86,
     weeklySavings: 320,
   };
 
-  const recentActivities = [
-    { type: "expense", user: "Alex Chen", amount: 45.50, description: "Groceries", time: "2 min ago" },
-    { type: "payment", user: "Sarah Kim", amount: 120.00, description: "Rent payment", time: "15 min ago" },
-    { type: "expense", user: "Mike Johnson", amount: 23.75, description: "Utilities", time: "1 hour ago" },
-    { type: "achievement", user: "Emma Davis", amount: 0, description: "Budget Master Badge", time: "2 hours ago" },
-  ];
-
-  const notifications = [
-    { id: 1, type: "expense", message: "Alex Chen added a new expense: $45.50 for Groceries", time: "2 min ago", read: false },
-    { id: 2, type: "payment", message: "Sarah Kim made a rent payment of $120.00", time: "15 min ago", read: false },
-    { id: 3, type: "achievement", message: "Emma Davis earned the Budget Master Badge!", time: "2 hours ago", read: true },
-    { id: 4, type: "reminder", message: "Monthly budget review due in 3 days", time: "1 day ago", read: true },
-  ];
-
-  const upcomingEvents = [
-    { date: "Dec 15", event: "Monthly Budget Review", time: "7:00 PM" },
-    { date: "Dec 20", event: "Rent Due", time: "All day" },
-    { date: "Dec 25", event: "Holiday Party Fund", time: "6:00 PM" },
-    { date: "Dec 31", event: "Year-end Summary", time: "11:59 PM" },
-  ];
+  // Dynamic data should come from the backend. Use empty defaults here
+  // to avoid showing any hard-coded sample names.
+  const recentActivities: Array<any> = [];
+  const notifications: Array<any> = [];
+  const upcomingEvents: Array<any> = [];
 
   // Check if room exists when component mounts
   useEffect(() => {
@@ -359,6 +347,28 @@ export default function RoomPage({ params }: { params: { roomId: string } }) {
           setRoomExists(true);
           setRoomData(data.room);
           setRoomName(data.room.name);
+          // Load members for this room from DB
+          try {
+            const membersRes = await fetch(`/api/rooms/members?roomId=${params.roomId}`);
+            if (membersRes.ok) {
+              const membersJson = await membersRes.json();
+              const raw = Array.isArray(membersJson.users) ? membersJson.users : (membersJson.users || []);
+              const mapped = raw.map((u: any) => ({
+                id: u.id ?? u._id ?? u.username,
+                username: (u.username || '').toString(),
+                points: 0,
+                isOnline: false,
+                lastActive: 'unknown'
+              } as RoomMember));
+              setMembers(mapped);
+            } else {
+              console.warn('Failed to load room members, status:', membersRes.status);
+              setMembers([]);
+            }
+          } catch (err) {
+            console.warn('Error fetching room members:', err);
+            setMembers([]);
+          }
         } else {
           setRoomExists(false);
         }
@@ -585,34 +595,37 @@ export default function RoomPage({ params }: { params: { roomId: string } }) {
                     </div>
 
                     <div className="space-y-4">
-                      {leaderboard.map((player, index) => (
+                      {members.map((member, index) => (
                         <div
-                          key={index}
+                          key={member.id}
                           className={`flex items-center justify-between p-4 rounded-lg transition-all duration-300 hover:scale-105 ${
-                            player.rank === 1
+                            index === 0
                               ? "bg-gradient-to-r from-yellow-900/30 to-orange-900/30 border border-yellow-500/30"
-                              : player.rank === 2
+                              : index === 1
                               ? "bg-gradient-to-r from-gray-900/30 to-slate-900/30 border border-gray-500/30"
-                              : player.rank === 3
+                              : index === 2
                               ? "bg-gradient-to-r from-orange-900/30 to-red-900/30 border border-orange-500/30"
                               : "bg-gradient-to-r from-slate-800/30 to-gray-800/30 border border-slate-600/30"
                           }`}
                         >
                           <div className="flex items-center space-x-4">
                             <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 font-bold text-white text-sm">
-                              {player.rank === 1 ? <Trophy className="w-6 h-6" /> : player.rank}
+                              {index === 0 ? <Trophy className="w-6 h-6" /> : index + 1}
                             </div>
                             <div>
-                              <div className="font-semibold text-base">{player.name}</div>
-                              <div className="text-sm text-gray-400">{player.efficiency}% efficiency</div>
+                              <div className="font-semibold text-base">{member.username}</div>
+                              <div className="text-sm text-gray-400">{member.isOnline ? 'Online' : `Last seen ${member.lastActive}`}</div>
                             </div>
                           </div>
                           <div className="text-right">
-                            <div className="text-xl font-bold text-purple-400">{player.score}</div>
+                            <div className="text-xl font-bold text-purple-400">{member.points.toLocaleString()}</div>
                             <div className="text-sm text-gray-400">points</div>
                           </div>
                         </div>
                       ))}
+                      {members.length === 0 && (
+                        <div className="text-center text-gray-400">No members found for this room.</div>
+                      )}
                     </div>
                   </div>
                 </div>

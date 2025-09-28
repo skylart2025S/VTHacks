@@ -43,7 +43,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     // Call Python script to generate Plaid sandbox data
     const pythonScript = path.join(process.cwd(), 'api', 'generate_user_financial_data.py');
     
-    return new Promise((resolve) => {
+    return new Promise<NextResponse>((resolve) => {
       const pythonProcess = spawn('python', [pythonScript, userId, filepath], {
         cwd: path.join(process.cwd(), 'api'),
         stdio: ['pipe', 'pipe', 'pipe']
@@ -69,10 +69,10 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
           // Read the generated file
           try {
             const financialData: FinancialData = JSON.parse(fs.readFileSync(filepath, 'utf8'));
-            
+
             // Clean up the temporary file
             fs.unlinkSync(filepath);
-            
+
             resolve(NextResponse.json({
               success: true,
               data: financialData,
