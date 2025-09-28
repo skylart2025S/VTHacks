@@ -49,20 +49,32 @@ export async function POST(request: NextRequest) {
     // Hash the password
     const passwordHash = await bcrypt.hash(password, 12);
 
+    // Read minimal_financial_data.json
+    let minimalFinancialData = {};
+    try {
+      const fs = require('fs');
+      const path = require('path');
+      const dataPath = path.join(process.cwd(), 'api', 'minimal_financial_data.json');
+      const fileContent = fs.readFileSync(dataPath, 'utf-8');
+      minimalFinancialData = JSON.parse(fileContent);
+    } catch (jsonErr) {
+      console.error('Error reading minimal_financial_data.json:', jsonErr);
+    }
+
     // Store the user (in production, save to database)
     const newUser = {
       username: username.toLowerCase(),
       password: passwordHash,
       roomId: '',
-      financial_data: {},
-  id: `user_${Date.now()}_${Math.random().toString(36).slice(2, 11)}` // Generate unique ID
+      financial_data: minimalFinancialData,
+      id: `user_${Date.now()}_${Math.random().toString(36).slice(2, 11)}` // Generate unique ID
     };
     await usersCollection.insertOne(newUser);
 
       // If the client requested a room to be created/added, store it in the rooms DB
       if (roomId) {
         try {
-          const roomsCollection = await getCollectionForDB('rooms_database', 'rooms');
+          const roomsCollection = await getCollectionForDB('user_database', 'rooms');
           if (roomsCollection) {
             const roomDoc = {
               id: roomId,
