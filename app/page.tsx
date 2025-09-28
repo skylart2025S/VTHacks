@@ -9,6 +9,12 @@ export default function LandingPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [isSignIn, setIsSignIn] = useState(false);
+  const [registrationData, setRegistrationData] = useState<{
+    userId: string;
+    itemId: string;
+    accountsCount: number;
+    transactionsCount: number;
+  } | null>(null);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,8 +37,23 @@ export default function LandingPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Success - redirect to rooms
-        router.push("/rooms");
+        // Store registration data for display
+        if (!isSignIn && data.financialDataGenerated) {
+          setRegistrationData({
+            userId: data.userId,
+            itemId: data.financialData?.metadata?.item_id,
+            accountsCount: data.financialData?.accounts?.length || 0,
+            transactionsCount: data.financialData?.transactions?.length || 0
+          });
+          
+          // Show success message briefly before redirecting
+          setTimeout(() => {
+            router.push("/rooms");
+          }, 2000);
+        } else {
+          // Success - redirect to rooms
+          router.push("/rooms");
+        }
       } else {
         // Handle error - username exists or other error
         setError(data.message || "An error occurred");
@@ -134,6 +155,27 @@ export default function LandingPage() {
             )}
           </button>
         </form>
+        
+        {/* Success Message for Account Creation */}
+        {registrationData && (
+          <div className="mt-6 p-4 bg-green-900/20 border border-green-500/30 rounded-lg">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-green-400 font-semibold">Account Created Successfully!</span>
+            </div>
+            <div className="text-sm text-gray-300 space-y-1">
+              <div>✅ Financial data generated</div>
+              <div>📊 Accounts: {registrationData.accountsCount}</div>
+              <div>💳 Transactions: {registrationData.transactionsCount}</div>
+              <div className="text-xs text-gray-400">
+                User ID: {registrationData.userId?.substring(0, 12)}...
+              </div>
+              <div className="text-xs text-gray-400">
+                Item ID: {registrationData.itemId?.substring(0, 12)}...
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

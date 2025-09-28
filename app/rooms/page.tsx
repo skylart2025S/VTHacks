@@ -7,19 +7,39 @@ export default function RoomSelectionPage() {
   const [roomCode, setRoomCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [action, setAction] = useState<"create" | "join" | null>(null);
+  const [error, setError] = useState("");
   const router = useRouter();
 
   const handleCreateRoom = async () => {
     setIsLoading(true);
     setAction("create");
+    setError("");
     
-    // Simulate room creation
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/rooms/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          roomName: 'My Room'
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        // Successfully created room, navigate to room page
+        router.push(`/room/${data.room.id}?host=true`);
+      } else {
+        setError(data.message || "Failed to create room");
+      }
+    } catch (error) {
+      console.error('Error creating room:', error);
+      setError("Network error. Please try again.");
+    } finally {
       setIsLoading(false);
-      // Generate a random room code for demo
-      const newRoomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
-      router.push(`/dashboard?room=${newRoomCode}&role=creator`);
-    }, 1500);
+    }
   };
 
   const handleJoinRoom = async (e: React.FormEvent) => {
@@ -28,12 +48,44 @@ export default function RoomSelectionPage() {
     
     setIsLoading(true);
     setAction("join");
+    setError("");
     
-    // Simulate room joining
-    setTimeout(() => {
+    try {
+      // First check if room exists
+      const checkResponse = await fetch(`/api/rooms/join?roomId=${roomCode}`);
+      const checkData = await checkResponse.json();
+      
+      if (!checkData.exists) {
+        setError("Room not found. Please check the room code and try again.");
+        setIsLoading(false);
+        return;
+      }
+      
+      // Room exists, now try to join it
+      const joinResponse = await fetch('/api/rooms/join', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          roomId: roomCode
+        })
+      });
+      
+      const joinData = await joinResponse.json();
+      
+      if (joinResponse.ok) {
+        // Successfully joined room, navigate to room page
+        router.push(`/room/${roomCode}`);
+      } else {
+        setError(joinData.message || "Failed to join room");
+      }
+    } catch (error) {
+      console.error('Error joining room:', error);
+      setError("Network error. Please try again.");
+    } finally {
       setIsLoading(false);
-      router.push(`/dashboard?room=${roomCode}&role=member`);
-    }, 1500);
+    }
   };
 
   return (
@@ -86,11 +138,21 @@ export default function RoomSelectionPage() {
                 type="text"
                 placeholder="Enter room code (e.g., ABC123)"
                 value={roomCode}
-                onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
-                className="w-full px-6 py-4 bg-slate-800/50 border border-slate-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all text-center text-lg font-mono tracking-wider"
+                onChange={(e) => {
+                  setRoomCode(e.target.value.toUpperCase());
+                  setError(""); // Clear error when user types
+                }}
+                className={`w-full px-6 py-4 bg-slate-800/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all text-center text-lg font-mono tracking-wider ${
+                  error ? 'border-red-500 focus:border-red-400 focus:ring-red-400/20' : 'border-slate-600 focus:border-blue-400 focus:ring-blue-400/20'
+                }`}
                 maxLength={6}
                 required
               />
+              {error && (
+                <div className="mt-2 text-red-400 text-sm text-center">
+                  {error}
+                </div>
+              )}
             </div>
             
             <button

@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { users } from '../users';
+import { setSession } from '../../../lib/session';
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,6 +35,9 @@ export async function POST(request: NextRequest) {
         { status: 401 }
       );
     }
+
+    // Set session
+    setSession(user.username);
 
     // Sign in successful
     return NextResponse.json(

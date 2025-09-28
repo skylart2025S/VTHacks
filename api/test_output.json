@@ -1,0 +1,361 @@
+{
+  "accounts": [
+    {
+      "account_id": "mock_account_1_2122",
+      "name": "Checking Account",
+      "type": "checking",
+      "subtype": "checking",
+      "balances": {
+        "current": 13233.33,
+        "available": 11910.0
+      }
+    },
+    {
+      "account_id": "mock_account_2_2122",
+      "name": "Savings Account",
+      "type": "savings",
+      "subtype": "savings",
+      "balances": {
+        "current": 12074.96,
+        "available": 10867.46
+      }
+    },
+    {
+      "account_id": "mock_account_3_2122",
+      "name": "Credit Account",
+      "type": "credit",
+      "subtype": "credit card",
+      "balances": {
+        "current": 42526.18,
+        "available": 34020.94
+      }
+    }
+  ],
+  "transactions": [
+    {
+      "transaction_id": "mock_transaction_1_2122",
+      "account_id": "mock_account_3_2122",
+      "amount": 97.85,
+      "date": "2025-09-13",
+      "name": "Netflix",
+      "merchant_name": "Netflix",
+      "category": "Entertainment"
+    },
+    {
+      "transaction_id": "mock_transaction_2_2122",
+      "account_id": "mock_account_1_2122",
+      "amount": 154.92,
+      "date": "2025-09-02",
+      "name": "Target",
+      "merchant_name": "Target",
+      "category": "Shopping"
+    },
+    {
+      "transaction_id": "mock_transaction_3_2122",
+      "account_id": "mock_account_1_2122",
+      "amount": 130.35,
+      "date": "2025-09-07",
+      "name": "Target",
+      "merchant_name": "Target",
+      "category": "Transportation"
+    },
+    {
+      "transaction_id": "mock_transaction_4_2122",
+      "account_id": "mock_account_2_2122",
+      "amount": 190.64,
+      "date": "2025-09-03",
+      "name": "Amazon",
+      "merchant_name": "Amazon",
+      "category": "Entertainment"
+    },
+    {
+      "transaction_id": "mock_transaction_5_2122",
+      "account_id": "mock_account_2_2122",
+      "amount": 20.39,
+      "date": "2025-09-26",
+      "name": "Gas Station",
+      "merchant_name": "Gas Station",
+      "category": "Shopping"
+    },
+    {
+      "transaction_id": "mock_transaction_6_2122",
+      "account_id": "mock_account_1_2122",
+      "amount": 73.98,
+      "date": "2025-09-11",
+      "name": "Gas Station",
+      "merchant_name": "Gas Station",
+      "category": "Transportation"
+    },
+    {
+      "transaction_id": "mock_transaction_7_2122",
+      "account_id": "mock_account_3_2122",
+      "amount": 188.57,
+      "date": "2025-09-15",
+      "name": "Netflix",
+      "merchant_name": "Netflix",
+      "category": "Entertainment"
+    },
+    {
+      "transaction_id": "mock_transaction_8_2122",
+      "account_id": "mock_account_1_2122",
+      "amount": 43.77,
+      "date": "2025-09-20",
+      "name": "Target",
+      "merchant_name": "Target",
+      "category": "Entertainment"
+    },
+    {
+      "transaction_id": "mock_transaction_9_2122",
+      "account_id": "mock_account_1_2122",
+      "amount": 113.16,
+      "date": "2025-09-03",
+      "name": "Uber",
+      "merchant_name": "Uber",
+      "category": "Food and Drink"
+    },
+    {
+      "transaction_id": "mock_transaction_10_2122",
+      "account_id": "mock_account_2_2122",
+      "amount": 117.99,
+      "date": "2025-09-06",
+      "name": "Target",
+      "merchant_name": "Target",
+      "category": "Transportation"
+    },
+    {
+      "transaction_id": "mock_transaction_11_2122",
+      "account_id": "mock_account_1_2122",
+      "amount": 15.68,
+      "date": "2025-09-13",
+      "name": "Starbucks",
+      "merchant_name": "Starbucks",
+      "category": "Food and Drink"
+    },
+    {
+      "transaction_id": "mock_transaction_12_2122",
+      "account_id": "mock_account_3_2122",
+      "amount": 94.9,
+      "date": "2025-09-07",
+      "name": "Gas Station",
+      "merchant_name": "Gas Station",
+      "category": "Transportation"
+    },
+    {
+      "transaction_id": "mock_transaction_13_2122",
+      "account_id": "mock_account_1_2122",
+      "amount": 49.56,
+      "date": "2025-09-03",
+      "name": "Uber",
+      "merchant_name": "Uber",
+      "category": "Transportation"
+    },
+    {
+      "transaction_id": "mock_transaction_14_2122",
+      "account_id": "mock_account_1_2122",
+      "amount": 112.86,
+      "date": "2025-09-16",
+      "name": "Spotify",
+      "merchant_name": "Spotify",
+      "category": "Transportation"
+    },
+    {
+      "transaction_id": "mock_transaction_15_2122",
+      "account_id": "mock_account_1_2122",
+      "amount": 82.8,
+      "date": "2025-08-31",
+      "name": "McDonald's",
+      "merchant_name": "McDonald's",
+      "category": "Food and Drink"
+    },
+    {
+      "transaction_id": "mock_transaction_16_2122",
+      "account_id": "mock_account_3_2122",
+      "amount": 163.83,
+      "date": "2025-09-15",
+      "name": "McDonald's",
+      "merchant_name": "McDonald's",
+      "category": "Food and Drink"
+    },
+    {
+      "transaction_id": "mock_transaction_17_2122",
+      "account_id": "mock_account_1_2122",
+      "amount": 197.61,
+      "date": "2025-09-14",
+      "name": "McDonald's",
+      "merchant_name": "McDonald's",
+      "category": "Transportation"
+    },
+    {
+      "transaction_id": "mock_transaction_18_2122",
+      "account_id": "mock_account_2_2122",
+      "amount": 70.7,
+      "date": "2025-08-30",
+      "name": "Restaurant",
+      "merchant_name": "Restaurant",
+      "category": "Food and Drink"
+    },
+    {
+      "transaction_id": "mock_transaction_19_2122",
+      "account_id": "mock_account_2_2122",
+      "amount": 187.12,
+      "date": "2025-09-19",
+      "name": "Restaurant",
+      "merchant_name": "Restaurant",
+      "category": "Food and Drink"
+    }
+  ],
+  "holdings": [
+    {
+      "account_id": "mock_account_1_2122",
+      "security_id": "mock_security_1",
+      "institution_price": 469.6654522381873,
+      "institution_price_as_of": "2025-09-27",
+      "institution_value": 5068.56,
+      "cost_basis": 5689.36,
+      "quantity": 10.7919,
+      "iso_currency_code": "USD",
+      "unofficial_currency_code": null
+    },
+    {
+      "account_id": "mock_account_2_2122",
+      "security_id": "mock_security_2",
+      "institution_price": 386.53164454388696,
+      "institution_price_as_of": "2025-09-27",
+      "institution_value": 13166.76,
+      "cost_basis": 12445.63,
+      "quantity": 34.0639,
+      "iso_currency_code": "USD",
+      "unofficial_currency_code": null
+    },
+    {
+      "account_id": "mock_account_3_2122",
+      "security_id": "mock_security_3",
+      "institution_price": 419.4630819223658,
+      "institution_price_as_of": "2025-09-27",
+      "institution_value": 34790.38,
+      "cost_basis": 39424.01,
+      "quantity": 82.9403,
+      "iso_currency_code": "USD",
+      "unofficial_currency_code": null
+    },
+    {
+      "account_id": "mock_account_1_2122",
+      "security_id": "mock_security_4",
+      "institution_price": 387.77372063879136,
+      "institution_price_as_of": "2025-09-27",
+      "institution_value": 34232.31,
+      "cost_basis": 33755.25,
+      "quantity": 88.2791,
+      "iso_currency_code": "USD",
+      "unofficial_currency_code": null
+    },
+    {
+      "account_id": "mock_account_2_2122",
+      "security_id": "mock_security_5",
+      "institution_price": 75.35303750576607,
+      "institution_price_as_of": "2025-09-27",
+      "institution_value": 2860.23,
+      "cost_basis": 3010.75,
+      "quantity": 37.9578,
+      "iso_currency_code": "USD",
+      "unofficial_currency_code": null
+    }
+  ],
+  "securities": [
+    {
+      "security_id": "mock_security_1",
+      "isin": "USAAPL123456",
+      "cusip": "AAPL123456",
+      "sedol": "AAPL1234",
+      "institution_security_id": "INST_AAPL",
+      "institution_id": "mock_institution",
+      "proxy_security_id": null,
+      "name": "AAPL Inc.",
+      "ticker_symbol": "AAPL",
+      "is_cash_equivalent": false,
+      "type": "equity",
+      "close_price": 469.6654522381873,
+      "close_price_as_of": "2025-09-27",
+      "iso_currency_code": "USD",
+      "unofficial_currency_code": null
+    },
+    {
+      "security_id": "mock_security_2",
+      "isin": "USTSLA123456",
+      "cusip": "TSLA123456",
+      "sedol": "TSLA1234",
+      "institution_security_id": "INST_TSLA",
+      "institution_id": "mock_institution",
+      "proxy_security_id": null,
+      "name": "TSLA Inc.",
+      "ticker_symbol": "TSLA",
+      "is_cash_equivalent": false,
+      "type": "equity",
+      "close_price": 386.53164454388696,
+      "close_price_as_of": "2025-09-27",
+      "iso_currency_code": "USD",
+      "unofficial_currency_code": null
+    },
+    {
+      "security_id": "mock_security_3",
+      "isin": "USMETA123456",
+      "cusip": "META123456",
+      "sedol": "META1234",
+      "institution_security_id": "INST_META",
+      "institution_id": "mock_institution",
+      "proxy_security_id": null,
+      "name": "META Inc.",
+      "ticker_symbol": "META",
+      "is_cash_equivalent": false,
+      "type": "equity",
+      "close_price": 419.4630819223658,
+      "close_price_as_of": "2025-09-27",
+      "iso_currency_code": "USD",
+      "unofficial_currency_code": null
+    },
+    {
+      "security_id": "mock_security_4",
+      "isin": "USNVDA123456",
+      "cusip": "NVDA123456",
+      "sedol": "NVDA1234",
+      "institution_security_id": "INST_NVDA",
+      "institution_id": "mock_institution",
+      "proxy_security_id": null,
+      "name": "NVDA Inc.",
+      "ticker_symbol": "NVDA",
+      "is_cash_equivalent": false,
+      "type": "equity",
+      "close_price": 387.77372063879136,
+      "close_price_as_of": "2025-09-27",
+      "iso_currency_code": "USD",
+      "unofficial_currency_code": null
+    },
+    {
+      "security_id": "mock_security_5",
+      "isin": "USMSFT123456",
+      "cusip": "MSFT123456",
+      "sedol": "MSFT1234",
+      "institution_security_id": "INST_MSFT",
+      "institution_id": "mock_institution",
+      "proxy_security_id": null,
+      "name": "MSFT Inc.",
+      "ticker_symbol": "MSFT",
+      "is_cash_equivalent": false,
+      "type": "equity",
+      "close_price": 75.35303750576607,
+      "close_price_as_of": "2025-09-27",
+      "iso_currency_code": "USD",
+      "unofficial_currency_code": null
+    }
+  ],
+  "investment_transactions": [],
+  "metadata": {
+    "user_id": "test_user_123",
+    "generated_at": "2025-09-27T22:12:49.525593",
+    "data_source": "mock_data",
+    "item_id": "mock_item_2122",
+    "total_accounts": 3,
+    "total_transactions": 19,
+    "total_holdings": 5
+  }
+}
