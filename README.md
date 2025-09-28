@@ -29,15 +29,19 @@ RoomieLoot combines real financial data integration with gaming mechanics to mak
 
 ### Backend
 - **Next.js API Routes** - Server-side API endpoints
+- **Flask** - Python web framework for financial services
 - **Prisma 6.16.2** - Database ORM
 - **PostgreSQL** - Primary database
 - **MongoDB** - Additional data storage
 - **bcryptjs** - Password hashing
 
-### Financial Integration
+### Financial Integration & Python Ecosystem
 - **Plaid API** - Bank account and transaction data
-- **Python Scripts** - Financial data processing and analysis
+- **Python 3.8+** - Core financial processing language
+- **Flask** - Python web services and API endpoints
+- **Plaid Python SDK** - Official Plaid integration
 - **Custom AI Agent** - Financial advice generation and scoring
+- **Financial Data Processing** - Transaction analysis and categorization
 
 ### Authentication
 - **Custom Session Management** - User authentication
@@ -69,10 +73,14 @@ RoomieLoot/
 │   ├── room/[roomId]/            # Group/room pages with leaderboards
 │   ├── rooms/                    # Group selection
 │   └── page.tsx                  # Landing page
-├── api/                          # Python financial integration
+├── api/                          # Python Flask API & financial integration
 │   ├── plaid_client.py           # Plaid API client
 │   ├── get_my_data.py            # Data fetching script
 │   ├── generate_user_financial_data.py # Data generation
+│   ├── app.py                    # Flask web application
+│   ├── routes/                   # Flask API routes
+│   ├── models/                   # Python data models
+│   ├── services/                 # Business logic services
 │   └── requirements.txt          # Python dependencies
 ├── agent/                        # AI financial advisor
 │   ├── main.py                   # Main agent logic
@@ -113,7 +121,16 @@ RoomieLoot/
    cd ..
    ```
 
-4. **Set up environment variables**
+4. **Set up Python virtual environment (recommended)**
+   ```bash
+   cd api
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   cd ..
+   ```
+
+5. **Set up environment variables**
    
    Create a `.env.local` file in the root directory:
    ```env
@@ -129,23 +146,31 @@ RoomieLoot/
    SESSION_SECRET=your_session_secret_here
    ```
 
-5. **Set up the database**
+6. **Set up the database**
    ```bash
    npx prisma generate
    npx prisma db push
    ```
 
-6. **Run the development server**
+7. **Start the Flask API server**
+   ```bash
+   cd api
+   python app.py  # or flask run
+   ```
+
+8. **Run the Next.js development server**
    ```bash
    npm run dev
    ```
 
-7. **Open your browser**
+9. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
 ## 🔧 API Documentation
 
-### Authentication Endpoints
+### Next.js API Endpoints
+
+#### Authentication Endpoints
 
 #### POST `/api/auth/register`
 Register a new user account with automatic financial data generation.
@@ -214,6 +239,82 @@ Get user's financial data including accounts, transactions, and holdings.
   "metadata": {...}
 }
 ```
+
+## 🐍 Python Flask API Documentation
+
+### Flask Financial Services
+
+The Flask API provides core financial data processing and AI services:
+
+#### POST `/api/financial/analyze`
+Analyze user financial data and generate insights.
+
+**Request Body:**
+```json
+{
+  "userId": "string",
+  "financialData": {...}
+}
+```
+
+**Response:**
+```json
+{
+  "score": 85,
+  "recommendations": [...],
+  "insights": {...}
+}
+```
+
+#### POST `/api/financial/generate`
+Generate financial data for new users using Plaid sandbox.
+
+**Request Body:**
+```json
+{
+  "userId": "string"
+}
+```
+
+#### GET `/api/financial/score`
+Get current financial wellness score for a user.
+
+**Response:**
+```json
+{
+  "score": 85,
+  "breakdown": {
+    "balance": 20,
+    "investments": 15,
+    "credit": 10,
+    "spending": 8,
+    "diversity": 7,
+    "base": 30
+  }
+}
+```
+
+### Python Services
+
+#### PlaidClient Class
+- **Purpose**: Handles all Plaid API interactions
+- **Methods**:
+  - `create_sandbox_item()` - Create test financial data
+  - `get_accounts()` - Fetch account information
+  - `get_transactions()` - Retrieve transaction history
+  - `get_investments()` - Get investment holdings
+  - `get_securities()` - Fetch security information
+
+#### Financial Data Processing
+- **Transaction Categorization**: Automatic categorization of expenses
+- **Balance Analysis**: Real-time account balance monitoring
+- **Investment Tracking**: Portfolio analysis and performance metrics
+- **Data Transformation**: Convert raw Plaid data to application format
+
+#### AI Financial Agent
+- **Scoring Algorithm**: Comprehensive financial wellness calculation
+- **Recommendation Engine**: Personalized financial advice generation
+- **Data Analysis**: Pattern recognition in spending and saving habits
 
 ## 🎮 Features Overview
 
@@ -291,6 +392,51 @@ python main.py
 - `npm run start` - Start production server
 - `npm run lint` - Run Biome linter
 - `npm run format` - Format code with Biome
+
+### Python Development
+
+#### Running Python Services
+```bash
+# Start Flask API server
+cd api
+python app.py
+
+# Run financial data generation
+python get_my_data.py
+
+# Run AI financial agent
+cd ../agent
+python main.py
+```
+
+#### Python Dependencies
+The project uses several Python packages for financial processing:
+
+```bash
+# Core dependencies
+plaid-python>=11.0.0      # Plaid API integration
+python-dotenv>=1.0.0      # Environment variable management
+requests>=2.31.0          # HTTP requests
+
+# Additional packages (if Flask is used)
+flask>=2.0.0              # Web framework
+flask-cors>=3.0.0         # CORS handling
+```
+
+#### Virtual Environment Setup
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate (Linux/Mac)
+source venv/bin/activate
+
+# Activate (Windows)
+venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
 
 ### Database Management
 
