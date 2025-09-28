@@ -1,10 +1,7 @@
 // app/api/auth/register/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-
-// In-memory storage (replace with actual database in production)
-// For production, use PostgreSQL, MongoDB, or another database
-const users: { username: string; passwordHash: string }[] = [];
+import { users } from '../users';
 
 export async function POST(request: NextRequest) {
   try {
