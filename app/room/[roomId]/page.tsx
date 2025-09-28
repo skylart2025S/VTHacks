@@ -301,6 +301,7 @@ export default function RoomPage() {
     id: string;
     username: string;
     points: number;
+    balance?: number;  // Financial data balance
     avatar?: string;
     isOnline: boolean;
     lastActive: string;
@@ -358,14 +359,53 @@ export default function RoomPage() {
             if (membersRes.ok) {
               const membersJson = await membersRes.json();
               const raw = Array.isArray(membersJson.users) ? membersJson.users : (membersJson.users || []);
-              const mapped = raw.map((u: any) => ({
+              
+              // First map the basic user data
+              const initialMembers = raw.map((u: any) => ({
                 id: u.id ?? u._id ?? u.username,
                 username: (u.username || '').toString(),
                 points: 0,
                 isOnline: false,
-                lastActive: 'unknown'
+                lastActive: 'unknown',
+                balance: 0
               } as RoomMember));
-              setMembers(mapped);
+              
+              // Set initial members
+              setMembers(initialMembers);
+              
+              // Then fetch financial data for each member
+              const membersWithFinancial = await Promise.all(
+                initialMembers.map(async (member: RoomMember) => {
+                  try {
+                    // Fetch financial data for this member
+                    const financialRes = await fetch(`/api/users/${member.id}/financial-data`);
+                    if (financialRes.ok) {
+                      const financialData = await financialRes.json();
+                      // Extract balance from financial data
+                      if (financialData && financialData.current_balance) {
+                        return {
+                          ...member,
+                          balance: financialData.current_balance,
+                          // Use balance for points as well for now
+                          points: Math.floor(financialData.current_balance)
+                        };
+                      }
+                    }
+                    return member;
+                  } catch (error) {
+                    console.warn(`Error fetching financial data for ${member.username}:`, error);
+                    return member;
+                  }
+                })
+              );
+              
+              // Sort members by balance (highest first)
+              const sortedMembers = membersWithFinancial.sort((a, b) => 
+                (b.balance || 0) - (a.balance || 0)
+              );
+              
+              // Update members state with sorted financial data
+              setMembers(sortedMembers);
             } else {
               console.warn('Failed to load room members, status:', membersRes.status);
               setMembers([]);
@@ -591,7 +631,7 @@ export default function RoomPage() {
                   <div className="bg-gradient-to-br from-slate-900/80 to-purple-900/50 backdrop-blur-sm border border-purple-500/30 rounded-3xl p-8 h-full">
                     <div className="flex items-center justify-between mb-8">
                       <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                        Leaderboard
+                        Financial Leaderboard
                       </h2>
                       <div className="flex items-center gap-2 text-sm text-gray-400">
                         <Clock className="w-4 h-4" />
@@ -623,8 +663,8 @@ export default function RoomPage() {
                             </div>
                           </div>
                           <div className="text-right">
-                            <div className="text-xl font-bold text-purple-400">{member.points.toLocaleString()}</div>
-                            <div className="text-sm text-gray-400">points</div>
+                            <div className="text-xl font-bold text-purple-400">${(member.balance || 0).toLocaleString()}</div>
+                            <div className="text-sm text-gray-400">balance</div>
                           </div>
                         </div>
                       ))}
